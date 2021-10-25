@@ -5,10 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ExemploComponent } from './exemplo/exemplo.component';
 
+import { ReactiveFormsModule } from '@angular/forms';
+import { CadastroProdutoComponent } from './cadastro-produto/cadastro-produto.component';
+
 @NgModule({
   declarations: [
     AppComponent,
-    ExemploComponent
+    ExemploComponent,
+    CadastroProdutoComponent
   ],
   imports: [
     BrowserModule,
