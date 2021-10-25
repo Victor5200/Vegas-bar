@@ -14,10 +14,11 @@ import { CadastroProdutoComponent } from './cadastro-produto/cadastro-produto.co
     ExemploComponent,
     CadastroProdutoComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
