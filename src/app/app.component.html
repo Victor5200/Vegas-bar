@@ -1,24 +1,10 @@
 <div class="wrapper">
   <div class="sidebar">
-    <div class="sidebar-wrapper">
-      <ul class="nav">
-        <li class="active"><a><i class="fa fa-address-card" aria-hidden="true"></i><p>Home</p></a></li>
-        <li><a><i class="fa fa-address-card" aria-hidden="true"></i><p>Estoque</p></a></li>
-        <li><a><i class="fa fa-address-card" aria-hidden="true"></i><p>Membro / Candidatos</p></a></li>
-        <li><a><i class="fa fa-address-card" aria-hidden="true"></i><p>Caixa</p></a></li>
-        <li><a><i class="fa fa-address-card" aria-hidden="true"></i><p>Relatorio de Vendas</p></a></li>
-      </ul>
-    </div>
+    <app-navbar></app-navbar>
   </div>
 
   <div class="main-panel">
-    <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
-      <div class="container-fluid">
-        <div class="navbar-wrapper mt-4">
-          <a class="navbar-brand vegas fs-2 text-uppercase">Vegas Bar</a>
-        </div>
-      </div>
-    </nav>
+    <app-header></app-header>
 
     <div class="content">
       <router-outlet></router-outlet>
