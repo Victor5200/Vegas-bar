@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+
+@font-face {
+  font-family: "Vegas";
+  src: url("assets/vegas.ttf");
+}
+
+.vegas {
+  font-family: 'Vegas';
+}
+
+.fs-2 {
+  font-size: 2rem !important;
+}
+
+a {
+  color: #ccc !important;
+  text-decoration: none !important;
+}
+
+.nav-link {
+  color: #ccc !important;
+  cursor: pointer;
+}
