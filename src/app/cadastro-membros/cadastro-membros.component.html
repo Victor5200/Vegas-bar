@@ -20,20 +20,28 @@
 
         <div class="col-sm-10 mt-2">
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-sm btn-primary btn-simple" id="0">
-              <input type="radio" name="relevancia" formControlName="relevancia"> Fullpatch
+            <label class="btn btn-sm btn-primary btn-simple" [class.active]="isActive('Fullpatch')" id="0">
+              <input type="radio" name="relevancia" formControlName="relevancia" value="Fullpatch"> Fullpatch
             </label>
-            <label class="btn btn-sm btn-primary btn-simple" id="1">
-              <input type="radio" name="relevancia" formControlName="relevancia"> Prospect
+            <label class="btn btn-sm btn-primary btn-simple" [class.active]="isActive('Prospect')" id="1">
+              <input type="radio" name="relevancia" formControlName="relevancia" value="Prospect"> Prospect
             </label>
-            <label class="btn btn-sm btn-primary btn-simple " id="2">
-              <input type="radio" name="relevancia" formControlName="relevancia"> Hangaround
+            <label class="btn btn-sm btn-primary btn-simple " [class.active]="isActive('Hangaround')" id="2">
+              <input type="radio" name="relevancia" formControlName="relevancia" value="Hangaround"> Hangaround
             </label>
           </div>
         </div>
 
         <div class="col-sm-2 mt-2">
-          <input type="checkbox" name="inadimplente" formControlName="inadimplente"> Inadimplente
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="checkbox" value="">
+              Inadimplente
+              <span class="form-check-sign">
+                                <span class="check"></span>
+                              </span>
+            </label>
+          </div>
         </div>
 
         <div class="col-sm-12">

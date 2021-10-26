@@ -21,8 +21,11 @@ export class CadastroMembrosComponent implements OnInit {
       nome: new FormControl(membros.nome),
       cpf: new FormControl(membros.cpf),
       telefone: new FormControl(membros.telefone),
-
-
+      relevancia: new FormControl(!membros.relevancia ? 'Fullpatch' : membros.relevancia),
     });
+  }
+
+  isActive(s: string) {
+    return this.formMembros.value.relevancia === s;
   }
 }
