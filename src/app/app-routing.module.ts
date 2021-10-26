@@ -12,8 +12,8 @@ const routes: Routes = [
   {path: 'cadastro-produto', component: CadastroProdutoComponent},
   {path: 'login', component: LoginComponent},
   {path: 'cadastro-produto', component: CadastroProdutoComponent},
-  {path: 'cadastro-membros', component: CadastroMembrosComponent}
-  { path: 'cadastro-estoque' , component: CadastroEstoqueComponent}
+  {path: 'cadastro-membros', component: CadastroMembrosComponent},
+  {path: 'cadastro-estoque', component: CadastroEstoqueComponent}
 ];
 
 @NgModule({
