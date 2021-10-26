@@ -7,12 +7,15 @@ import { ExemploComponent } from './exemplo/exemplo.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { CadastroProdutoComponent } from './cadastro-produto/cadastro-produto.component';
+import { CadastroEstoqueComponent } from './cadastro-estoque/cadastro-estoque.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     ExemploComponent,
-    CadastroProdutoComponent
+    CadastroProdutoComponent,
+    CadastroEstoqueComponent,
   ],
     imports: [
         BrowserModule,
