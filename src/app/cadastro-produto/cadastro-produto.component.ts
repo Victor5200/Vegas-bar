@@ -15,7 +15,7 @@ export class CadastroProdutoComponent implements OnInit {
     this.createForm(new Produto());
   }
 
-  createForm(produto: Produto) {
+  createForm(produto: Produto): void {
     this.formProduto = new FormGroup({
       nome: new FormControl(produto.nome),
       valorVenda: new FormControl(produto.valorVenda),
