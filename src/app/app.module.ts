@@ -13,6 +13,7 @@ import {CaixaComponent} from './components/caixa/caixa.component';
 import {HeaderComponent} from './shared/header/header.component';
 import {NavbarComponent} from './shared/navbar/navbar.component';
 import {CadastroMembrosComponent} from './cadastro-membros/cadastro-membros.component';
+import { VedasComandasComponent } from './vedas-comandas/vedas-comandas.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import {CadastroMembrosComponent} from './cadastro-membros/cadastro-membros.comp
     HeaderComponent,
     NavbarComponent,
     CadastroEstoqueComponent,
+    VedasComandasComponent,
   ],
     imports: [
         BrowserModule,

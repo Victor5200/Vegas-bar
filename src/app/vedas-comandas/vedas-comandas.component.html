@@ -1,0 +1,52 @@
+<form [formGroup]="formVendascomandas">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+      <div class="card-header ">
+        <h6 class="title d-inline">Vendas-Comandas</h6>
+      </div>
+      <div class="card-body row">
+        <div class="mr-6 col-sm-12 ">
+          <label>Tipo de Vendas:</label>
+        </div>
+        <label class="btn btn-sm btn-primary btn-simple" id="1">
+          <input type="radio" name="relevancia" formControlName="relevancia"> Membro
+        </label>
+        <label class="btn btn-sm btn-primary btn-simple " id="2">
+          <input type="radio" name="relevancia" formControlName="relevancia"> Comanda
+        </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" placeholder="Membro/Candidato" aria-label="MembroCandidato"
+                 id="MembroCandidato" formControlName="nome">
+        </div>
+
+
+        <div class="form-group col-sm-4">
+          <input type="text" class="form-control" placeholder="Código do Produto" aria-label="CodigoProduto"
+                 id="CodigoProduto" formControlName="cpf">
+        </div>
+
+        <div class="form-group col-sm-4">
+          <input type="text" class="form-control" placeholder="Nome do Produto" aria-label="NomeProduto"
+                 id="NomeProduto" formControlName="cpf">
+        </div>
+
+        <div class="form-group col-sm-2">
+          <input type="text" class="form-control" placeholder="Valor" aria-label="Valor" id="valor"
+                 formControlName="telefone">
+        </div>
+
+        <div class="form-group col-sm-2">
+          <input type="text" class="form-control" placeholder="Quantidade" aria-label="Quantidade" id="Quantidade"
+                 formControlName="telefone">
+        </div>
+        <div class="col-sm-12">
+          <div class="float-right">
+            <button class="btn btn-default mr-2"> Limpar</button>
+            <button class="btn btn-primary"> Gravar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
