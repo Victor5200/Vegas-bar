@@ -1,0 +1,28 @@
+<form [formGroup]="formEstoque">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title"> Cadastro de Estoque</h4>
+    </div>
+    <div class="card-body col-md-12 row">
+      <div class="form-group col-sm-3">
+        <label> Codigo do Produto </label>
+        <input type="text" class="form-control" formControlName="codigo">
+      </div>
+
+      <div class="form-group col-sm-6">
+        <label> Nome do Produto </label>
+        <input type="text" class="form-control" formControlName="produto">
+      </div>
+
+      <div class="form-group col-sm-3">
+        <label> Quantidade </label>
+        <input type="number" class="form-control" formControlName="quantidade">
+      </div>
+
+      <div class="float-right col-sm-12">
+        <button class="btn btn-default mr-2"> Limpar</button>
+        <button class="btn btn-primary"> Gravar</button>
+      </div>
+    </div>
+  </div>
+</form>
