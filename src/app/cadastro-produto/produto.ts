@@ -4,4 +4,5 @@ export class Produto {
   fornecedor: string;
   codigoInterno: number;
   precoCusto: number;
+  quantidade:string
 }
