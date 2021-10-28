@@ -15,6 +15,7 @@ import {NavbarComponent} from './shared/navbar/navbar.component';
 import {CadastroMembrosComponent} from './cadastro-membros/cadastro-membros.component';
 import { VedasComandasComponent } from './vedas-comandas/vedas-comandas.component';
 import { ConsultaProdutosComponent } from './consulta-produtos/consulta-produtos.component';
+import { ConsultaMembrosComponent } from './consulta-membros/consulta-membros.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { ConsultaProdutosComponent } from './consulta-produtos/consulta-produtos
     CadastroEstoqueComponent,
     VedasComandasComponent,
     ConsultaProdutosComponent,
+    ConsultaMembrosComponent,
   ],
     imports: [
         BrowserModule,

@@ -1,0 +1,68 @@
+<form [formGroup]="formConsultaMembros">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+      <div class="card-header ">
+        <h6 class="title d-inline">Consultar Membros</h6>
+      </div>
+      <div class="card-body row">
+        <div class="col-sm-12">
+          <input type="text" class="form-control" placeholder="Consultar Membro/Candidato" aria-label="ConsultaMembroCandidato"
+                 id="ConsultaMembros" formControlName="ConsultaMembros">
+        </div>
+        <div class="col-sm-10 mt-2">
+          <div class="btn-group btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-sm btn-primary btn-simple active" id="0">
+              <input type="radio" name="relevancia" formControlName="relevancia" value="Fullpatch"> Fullpatch
+            </label>
+            <label class="btn btn-sm btn-primary btn-simple" id="1">
+              <input type="radio" name="relevancia" formControlName="relevancia" value="Prospect"> Prospect
+            </label>
+            <label class="btn btn-sm btn-primary btn-simple "  id="2">
+              <input type="radio" name="relevancia" formControlName="relevancia" value="Hangaround"> Hangaround
+            </label>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class=" float-right">
+            <button class="btn btn-default mr-2">Limpar</button>
+            <button class="btn btn-primary">Pesquisar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="col-lg-12 col-md-12">
+  <div class="card">
+    <div class="card-header ">
+      <h6 class="title d-inline">Consultar Membros</h6>
+    </div>
+    <div class="col-sm-12">
+      <div class=" float-right">
+        <button class="btn btn-primary">Novo</button>
+      </div>
+      <table class="table table-bordered">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Membro</th>
+          <th scope="col">Relevancia</th>
+          <th scop="col">Ações</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td></td>
+          <td></td>
+
+          <td><button class="btn btn-default mr-2 p-0" ><i class="fa fa-empire" aria-hidden="true"></i>
+          </button><button class="btn btn-default  p-0" ><i class="fa fa-trash " aria-hidden="false"></i></button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+

@@ -1,3 +1,5 @@
+
+
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {ExemploComponent} from './exemplo/exemplo.component';
@@ -7,6 +9,8 @@ import {CadastroMembrosComponent} from './cadastro-membros/cadastro-membros.comp
 import {LoginComponent} from './components/login/login.component';
 import {VedasComandasComponent} from './vedas-comandas/vedas-comandas.component';
 import {ConsultaProdutosComponent} from './consulta-produtos/consulta-produtos.component';
+import {ConsultaMembrosComponent} from './consulta-membros/consulta-membros.component';
+
 
 
 const routes: Routes = [
@@ -16,15 +20,13 @@ const routes: Routes = [
   {path: 'cadastro-produto', component: CadastroProdutoComponent},
   {path: 'cadastro-membros', component: CadastroMembrosComponent},
   {path: 'cadastro-estoque', component: CadastroEstoqueComponent},
-  {path: 'vendas-comandas',  component: VedasComandasComponent},
-  {path: 'consulta-produtos', component: ConsultaProdutosComponent}
-];
+  {path: 'vendas-comandas', component: VedasComandasComponent},
+  {path: 'consulta-produtos', component: ConsultaProdutosComponent},
+  {path: 'consulta-membros', component: ConsultaMembrosComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-
   exports: [RouterModule]
-
 })
 export class AppRoutingModule {
 }
