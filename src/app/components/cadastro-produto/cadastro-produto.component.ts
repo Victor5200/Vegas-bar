@@ -21,7 +21,8 @@ export class CadastroProdutoComponent implements OnInit {
       valorVenda: new FormControl(produto.valorVenda),
       fornecedor: new FormControl(produto.fornecedor),
       codigoInterno: new FormControl(produto.codigoInterno),
-      precoCusto: new FormControl(produto.precoCusto)
+      precoCusto: new FormControl(produto.precoCusto),
+      quantidade: new FormControl(produto.quantidade)
     });
   }
 }
