@@ -1,0 +1,41 @@
+<form [formGroup]="formRelatorio">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">Vendas</h4>
+    </div>
+
+    <div class="card-body">
+      <div class="form-group col-sm-12">
+        <label> Membro/Comanda</label>
+        <input type="text" class="form-control" formControlName="membroComandas">
+      </div>
+      <div class="float-right">
+        <button class="btn btn-default mr-2"> Limpar</button>
+        <button class="btn btn-default mr-2"> Pesquisar</button>
+      </div>
+      <div class="col-sm-12">
+        <table class="table table-bordered">
+          <thead>
+          <tr class="text-center">
+            <th scope="col">#</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Produto</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Ações</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="text-center">
+            <th scope="row">1</th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+            <th scope="row"></th>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</form>

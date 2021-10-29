@@ -16,7 +16,7 @@ import {CadastroMembrosComponent} from './components/cadastro-membros/cadastro-m
 import { VedasComandasComponent } from './vedas-comandas/vedas-comandas.component';
 import { ConsultaProdutosComponent } from './components/consulta-produtos/consulta-produtos.component';
 import { ConsultaMembrosComponent } from './components/consulta-membros/consulta-membros.component';
-import { RelatorioVendasComponent } from './relatorio-vendas/relatorio-vendas.component';
+import { RelatorioVendasComponent } from './components/relatorio-vendas/relatorio-vendas.component';
 
 
 @NgModule({

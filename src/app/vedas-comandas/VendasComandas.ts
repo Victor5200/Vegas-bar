@@ -1,7 +1,7 @@
 export class VendasComandas{
-  NomeCandidato:string;
-  CodigodoProduto:number;
-  NomedoProduto:string;
-  valor:number;
-  quantidade:number
+  nomeCandidato: string;
+  codigodoProduto: number;
+  nomedoProduto: string;
+  valor: number;
+  quantidade: number;
 }
