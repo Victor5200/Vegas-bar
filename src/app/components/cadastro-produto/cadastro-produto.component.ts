@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {FormGroup, FormControl} from '@angular/forms';
 import {Produto} from './produto';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-cadastro-produto',
@@ -9,7 +10,11 @@ import {Produto} from './produto';
 })
 export class CadastroProdutoComponent implements OnInit {
   formProduto: FormGroup;
-  constructor() { }
+  readonly apiURL: string = 'http//localhost:8080/api/produtos';
+
+
+  constructor(private http: HttpClient) {
+  }
 
   ngOnInit(): void {
     this.createForm(new Produto());
@@ -24,6 +29,11 @@ export class CadastroProdutoComponent implements OnInit {
       precoCusto: new FormControl(produto.precoCusto),
       quantidade: new FormControl(produto.quantidade)
     });
+  }
+
+  salvar() {
+    const produto = this.formProduto.value;
+    this.http.post(this.apiURL, produto);
   }
 }
 
