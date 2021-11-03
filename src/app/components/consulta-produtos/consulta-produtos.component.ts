@@ -23,8 +23,8 @@ export class ConsultaProdutosComponent implements OnInit {
 
   createForm(consultaProdutos: ConsultaProdutos): void {
     this.formConsultaProdutos = new FormGroup({
-      CodigoProduto: new FormControl(consultaProdutos.CodigoProduto),
-      NomeProduto: new FormControl(consultaProdutos.NomeProduto)
+      CodigoProduto: new FormControl(consultaProdutos.codigoProduto),
+      NomeProduto: new FormControl(consultaProdutos.nomeProduto)
     });
 
     function buscar() {

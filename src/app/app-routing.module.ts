@@ -10,6 +10,7 @@ import {CadastroProdutoComponent} from './components/cadastro-produto/cadastro-p
 import {CadastroMembrosComponent} from './components/cadastro-membros/cadastro-membros.component';
 import {ConsultaProdutosComponent} from './components/consulta-produtos/consulta-produtos.component';
 import {ConsultaMembrosComponent} from './components/consulta-membros/consulta-membros.component';
+import {RelatorioVendasComponent} from './components/relatorio-vendas/relatorio-vendas.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'cadastro-estoque', component: CadastroEstoqueComponent},
   {path: 'vendas-comandas', component: VedasComandasComponent},
   {path: 'consulta-produtos', component: ConsultaProdutosComponent},
+  {path: 'relatorio-vendas', component: RelatorioVendasComponent},
   {path: 'consulta-membros', component: ConsultaMembrosComponent}];
 
 @NgModule({

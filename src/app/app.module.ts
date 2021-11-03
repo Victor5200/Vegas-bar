@@ -13,9 +13,10 @@ import {CaixaComponent} from './components/caixa/caixa.component';
 import {HeaderComponent} from './shared/header/header.component';
 import {NavbarComponent} from './shared/navbar/navbar.component';
 import {CadastroMembrosComponent} from './components/cadastro-membros/cadastro-membros.component';
-import {VedasComandasComponent} from './vedas-comandas/vedas-comandas.component';
-import {ConsultaProdutosComponent} from './components/consulta-produtos/consulta-produtos.component';
-import {ConsultaMembrosComponent} from './components/consulta-membros/consulta-membros.component';
+import { VedasComandasComponent } from './vedas-comandas/vedas-comandas.component';
+import { ConsultaProdutosComponent } from './components/consulta-produtos/consulta-produtos.component';
+import { ConsultaMembrosComponent } from './components/consulta-membros/consulta-membros.component';
+import { RelatorioVendasComponent } from './components/relatorio-vendas/relatorio-vendas.component';
 import {HttpClientModule} from '@angular/common/http';
 
 
@@ -31,6 +32,7 @@ import {HttpClientModule} from '@angular/common/http';
     NavbarComponent,
     CadastroEstoqueComponent,
     VedasComandasComponent,
+    RelatorioVendasComponent,
     ConsultaProdutosComponent,
     ConsultaMembrosComponent,
   ],

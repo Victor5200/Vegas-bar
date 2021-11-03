@@ -1,5 +1,5 @@
 export class ConsultaProdutos {
-  CodigoProduto: number ;
-  NomeProduto: string
+  codigoProduto: number ;
+  nomeProduto: string;
 
 }
