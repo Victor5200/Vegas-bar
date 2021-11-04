@@ -10,24 +10,27 @@
         </div>
 
         <div class="col-sm">
-          <input type="text" class="form-control" placeholder="CPF" aria-label="CPF" id="cpf" formControlName="cpf">
+          <input type="text" class="form-control" placeholder="CPF" aria-label="CPF" id="cpf" formControlName="cpf" [mask]="cpfMask">
         </div>
 
         <div class="col-sm">
           <input type="text" class="form-control" placeholder="Telefone" aria-label="Telefone" id="telefone"
-                 formControlName="telefone">
+                 formControlName="telefone" [mask]="telMask">
         </div>
 
         <div class="col-sm-10 mt-2">
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-sm btn-primary btn-simple" [class.active]="isActive('Fullpatch')" id="0">
-              <input type="radio" name="relevancia" formControlName="relevancia" value="Fullpatch"> Fullpatch
+          <div class="btn-group btn-group-toggle">
+            <label class="btn btn-sm btn-primary btn-simple " id="0" [class.active]="isActive('Fullpatch')">
+              <input type="radio" name="relevancia" formControlName="relevancia" (click)="mudarRelevancia('Fullpatch')"
+                     value="Fullpatch"> Fullpatch
             </label>
-            <label class="btn btn-sm btn-primary btn-simple" [class.active]="isActive('Prospect')" id="1">
-              <input type="radio" name="relevancia" formControlName="relevancia" value="Prospect"> Prospect
+            <label class="btn btn-sm btn-primary btn-simple" id="1" [class.active]="isActive('Prospect')">
+              <input type="radio" name="relevancia" formControlName="relevancia" (click)="mudarRelevancia('Prospect')"
+                     value="Prospect"> Prospect
             </label>
-            <label class="btn btn-sm btn-primary btn-simple " [class.active]="isActive('Hangaround')" id="2">
-              <input type="radio" name="relevancia" formControlName="relevancia" value="Hangaround"> Hangaround
+            <label class="btn btn-sm btn-primary btn-simple " id="2" [class.active]="isActive('Hangaround')">
+              <input type="radio" name="relevancia" formControlName="relevancia" (click)="mudarRelevancia('Hangaround')"
+                     value="Hangaround"> Hangaround
             </label>
           </div>
         </div>
@@ -35,7 +38,7 @@
         <div class="col-sm-2 mt-2">
           <div class="form-check">
             <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" value="">
+              <input class="form-check-input" type="checkbox" formControlName="inadiplencia">
               Inadimplente
               <span class="form-check-sign">
                                 <span class="check"></span>
@@ -44,27 +47,13 @@
           </div>
         </div>
 
+
         <div class="col-sm-12">
           <div class=" float-right">
-            <button class="btn btn-default mr-2">Limpar</button>
+            <button class="btn btn-default mr-2" (click)="limpar()">Limpar</button>
             <button class="btn btn-primary" (click)="salvar()">Gravar</button>
           </div>
-          <!-- <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" >
-            <label class="custom-control-label" >FullPatch</label>
-          </div>
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" >
-            <label class="custom-control-label" >Prospect</label>
-          </div>
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" >
-            <label class="custom-control-label" >Hanground</label>
-          </div>
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" >
-            <label class="custom-control-label" >Inadiplente</label>
-          </div>-->
+
         </div>
       </div>
     </div>

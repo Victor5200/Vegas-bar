@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {Membro} from './membro';
 import {HttpClient} from '@angular/common/http';
+import {SwallUtil} from '../../shared/util/SwallUtil';
 
 @Component({
   selector: 'app-cadastro-membros',
@@ -14,6 +15,8 @@ export class CadastroMembrosComponent implements OnInit {
   formMembros: FormGroup;
 
   readonly apiURL: string = 'http://localhost:8080/api/membro';
+  telMask: any = "(00)00000-0000";
+  cpfMask: any ="000.000.000-00";
 
   constructor(private http: HttpClient) {
   }
@@ -28,7 +31,7 @@ export class CadastroMembrosComponent implements OnInit {
       cpf: new FormControl(membros.cpf),
       telefone: new FormControl(membros.telefone),
       inadiplencia: new FormControl(membros.inadiplencia),
-      relevancia: new FormControl(!membros.relevancia ? 'Fullpatch' : membros.relevancia),
+      relevancia: new FormControl('Fullpatch'),
     });
   };
 
@@ -41,13 +44,22 @@ export class CadastroMembrosComponent implements OnInit {
     this.http.post (this.apiURL, membros)
       .subscribe(
         resultado => {
-          console.log(resultado)
+          SwallUtil.mensagemSucesso("Aiii Até que vc n e tão burro, deu certo!");
+          this.limpar()
         },
         erro => {
-          if(erro.status == 400) {
-            console.log(erro);
-          }
+          SwallUtil.mensagemError("Erro Trouxa faz de novo ai burrão");
         }
       );
+  }
+
+  limpar(){
+    this.formMembros.reset()
+  }
+
+  mudarRelevancia(parametroRelevancia: string) {
+    this.formMembros.patchValue({
+      relevancia: parametroRelevancia
+    })
   }
 }

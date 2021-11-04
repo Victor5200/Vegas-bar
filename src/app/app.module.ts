@@ -18,7 +18,12 @@ import { ConsultaProdutosComponent } from './components/consulta-produtos/consul
 import { ConsultaMembrosComponent } from './components/consulta-membros/consulta-membros.component';
 import { RelatorioVendasComponent } from './components/relatorio-vendas/relatorio-vendas.component';
 import {HttpClientModule} from '@angular/common/http';
+import {IConfig, NgxMaskModule} from 'ngx-mask';
 
+
+const maskConfig: Partial<IConfig> = {
+  validation: false
+};
 
 @NgModule({
   declarations: [
@@ -40,7 +45,10 @@ import {HttpClientModule} from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxMaskModule.forRoot(maskConfig)
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]
