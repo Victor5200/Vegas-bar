@@ -2,7 +2,7 @@ export class Produto {
   nome: string  ;
   valorVenda: number ;
   fornecedor: string;
-  codigoInterno: number;
-  precoCusto: number;
+  idProduto: number;
+  valorCusto: number;
   quantidade:string
 }

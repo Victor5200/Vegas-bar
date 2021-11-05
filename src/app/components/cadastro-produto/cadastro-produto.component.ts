@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import {Produto} from './produto';
 import {HttpClient} from '@angular/common/http';
+import {SwallUtil} from '../../shared/util/SwallUtil';
+import {switchAll} from 'rxjs/operators';
 
 @Component({
   selector: 'app-cadastro-produto',
@@ -10,7 +12,9 @@ import {HttpClient} from '@angular/common/http';
 })
 export class CadastroProdutoComponent implements OnInit {
   formProduto: FormGroup;
-  readonly apiURL: string = 'http//localhost:8080/api/produtos';
+  readonly apiURL: string = 'http://localhost:8080/api/produtos';
+  cdiMask: any = "000";
+  precoMask: any ="00.00";
 
 
   constructor(private http: HttpClient) {
@@ -25,15 +29,17 @@ export class CadastroProdutoComponent implements OnInit {
       nome: new FormControl(produto.nome),
       valorVenda: new FormControl(produto.valorVenda),
       fornecedor: new FormControl(produto.fornecedor),
-      codigoInterno: new FormControl(produto.codigoInterno),
-      precoCusto: new FormControl(produto.precoCusto),
+      idProduto: new FormControl(produto.idProduto),
+      valorCusto: new FormControl(produto.valorCusto),
       quantidade: new FormControl(produto.quantidade)
     });
   }
 
   salvar() {
     const produto = this.formProduto.value;
-    this.http.post(this.apiURL, produto);
+    this.http.post(this.apiURL, produto)
+      .subscribe(() => SwallUtil.mensagemSucesso("Deu Certo!!!"),
+    error => SwallUtil.mensagemError("Deu errado besta!"));
   }
 }
 

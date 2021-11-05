@@ -12,20 +12,20 @@
       </div>
       <div class="form-group col-sm-6">
         <label> Codigo Interno </label>
-        <input type="number" class="form-control" formControlName="codigoInterno">
+        <input type="number" class="form-control" formControlName="codigoInterno" [mask]="cdiMask">
       </div>
 
       <div class="form-group col-sm-4">
         <label> Valor de venda </label>
-        <input type="number" class="form-control" formControlName="valorVenda">
+        <input type="number" class="form-control" formControlName="valorVenda" [mask]="precoMask">
       </div>
       <div class="form-group col-sm-4">
         <label> Preço de custo </label>
-        <input type="number" class="form-control" formControlName="precoCusto">
+        <input type="number" class="form-control" formControlName="valorCusto" [mask]="precoMask">
       </div>
       <div class="form-group col-sm-4">
         <label> Quantidade </label>
-        <input type="number" class="form-control" formControlName="quantidade">
+        <input type="number" class="form-control" formControlName="quantidade" [mask]="cdiMask">
       </div>
 
 
@@ -36,7 +36,7 @@
 
       <div class="float-right col-sm-12">
         <button class="btn btn-default mr-2"> Limpar</button>
-        <button class="btn btn-primary"> Gravar</button>
+        <button class="btn btn-primary" (click)="salvar()"> Gravar</button>
       </div>
     </div>
   </div>
