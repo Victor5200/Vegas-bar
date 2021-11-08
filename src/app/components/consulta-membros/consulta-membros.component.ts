@@ -12,8 +12,8 @@ import {HttpClient} from '@angular/common/http';
 })
 export class ConsultaMembrosComponent implements OnInit {
   formConsultaMembros: FormGroup;
-  readonly apiUrl: string = 'http://localhost:8080/api/membros';
-   retornoApi: Membro[];
+  readonly apiUrl: string = 'http://localhost:8080/api/membro';
+   consultaMembros: Membro[];
 
 
   constructor(private http: HttpClient) {
@@ -21,21 +21,24 @@ export class ConsultaMembrosComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm(new ConsultaMembros());
+    this.buscar();
   }
 
 
   createForm(consultarMembros: ConsultaMembros): void {
     this.formConsultaMembros = new FormGroup({
-      nomeMembro: new FormControl(consultarMembros.nomeMembro)
+      nomeMembro: new FormControl(consultarMembros.nomeMembro),
+      relevancia: new FormControl(null),
     });
   }
 
   isActive(prospect: string) {
 
   }
+
   buscar(): void {
     this.http.get<Membro[]>(this.apiUrl).subscribe(resultado => {
-      this.retornoApi = resultado;
+      this.consultaMembros = resultado;
     });
   }
 }
