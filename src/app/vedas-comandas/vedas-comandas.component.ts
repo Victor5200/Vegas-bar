@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {VendasComandas} from './VendasComandas';
 import {Membro} from '../components/cadastro-membros/membro';
 import {HttpClient} from '@angular/common/http';
@@ -18,7 +18,7 @@ export class VedasComandasComponent implements OnInit {
   produtoSelecionado: Produto;
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class VedasComandasComponent implements OnInit {
       valorTotal: new FormControl(null),
       descricao: new FormControl(null),
       pago: new FormControl(null),
-      // itens: new FormArray(null),
+       itens: new FormArray ([]),
       // membro: new FormGroup(null),
 
       nomeProduto: new FormControl(null),
@@ -57,8 +57,39 @@ export class VedasComandasComponent implements OnInit {
       this.formVendascomandas.patchValue({
         nomeProduto: resultado.nome,
         valor: resultado.valorVenda
-      })
+      });
+      this.produtoSelecionado = resultado;
     });
   }
 
+  retornaListaItens() {
+    const itens = this.formVendascomandas.value.itens;
+    return itens;
+  }
+
+  adicionarIten(){
+    const itens = this.formVendascomandas.get('itens') as FormArray;
+    itens.push(new FormGroup({
+      produto: new FormControl(this.produtoSelecionado),
+      quantidade: new FormControl(this.formVendascomandas.get('quantidadeProduto').value),
+      valor: new FormControl(this.formVendascomandas.get('quantidadeProduto').value * this.produtoSelecionado.valorVenda),
+    }));
+
+    this.formVendascomandas.patchValue({
+      nomeProduto: null,
+      quantidadeProduto: null,
+      codigoProduto: null,
+      valor: null,
+    });
+
+    this.produtoSelecionado = null;
+
+  }
+  somar (){
+    const itens = this.formVendascomandas.get('itens').value;
+    if (itens.length > 0 ) {
+      return itens.map(x => x.valor).reduce((y, x) => y + x);
+    }
+    return 0;
+  }
 }

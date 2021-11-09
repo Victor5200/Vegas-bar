@@ -50,7 +50,7 @@
         </div>
         <div class="col-sm-2">
           <div class="float-right">
-            <button class="btn btn-primary mt-4"> Adicionar</button>
+            <button class="btn btn-primary mt-4" (click)="adicionarIten()"> Adicionar</button>
           </div>
         </div>
       </div>
@@ -69,24 +69,26 @@
           <tr class="text-center">
             <th scope="col">#</th>
             <th scope="col">Nome</th>
-            <th scope="col">Quantidade</th>
             <th scope="col">Valor</th>
-            <th scop="col">Remover</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Valor Total</th>
+            <th scope="col">Remover</th>
           </tr>
           </thead>
           <tbody>
-          <tr class="text-center">
-            <td>#</td>
-            <td></td>
-            <td></td>
-            <td></td>
+          <tr class="text-center" *ngFor="let itens of retornaListaItens()">
+            <td>{{itens.produto.idProduto}}</td>
+            <td>{{itens.produto.nome}}</td>
+            <td>{{itens.produto.valorVenda}}</td>
+            <td>{{itens.quantidade}}</td>
+            <td>{{itens.valor}}</td>
             <td class="text-center">
               <button class="btn btn-default  p-0"><i class="fa fa-trash " aria-hidden="false"></i></button>
             </td>
           </tr>
           <tr>
-            <td colspan="4">Total Geral:</td>
-            <td>R$: 00,00</td>
+            <td colspan="5" >Total Geral:</td>
+            <td>R${{somar()}}</td>
           </tr>
           </tbody>
         </table>
