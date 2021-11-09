@@ -12,16 +12,16 @@
       </div>
       <div class="form-group col-sm-6">
         <label> Codigo Interno </label>
-        <input type="number" class="form-control" formControlName="codigoInterno" [mask]="cdiMask">
+        <input type="number" class="form-control" formControlName="codigoInterno" [maxLength]="3">
       </div>
 
       <div class="form-group col-sm-4">
         <label> Valor de venda </label>
-        <input type="number" class="form-control" formControlName="valorVenda" [mask]="precoMask">
+        <input type="number" class="form-control" formControlName="valorVenda" [step]="0.25" value="0.00">
       </div>
       <div class="form-group col-sm-4">
         <label> Preço de custo </label>
-        <input type="number" class="form-control" formControlName="valorCusto" [mask]="precoMask">
+        <input type="number" class="form-control" formControlName="valorCusto" [step]="0.25" value="0.00">
       </div>
       <div class="form-group col-sm-4">
         <label> Quantidade </label>

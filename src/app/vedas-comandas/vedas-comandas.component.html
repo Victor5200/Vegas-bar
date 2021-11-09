@@ -1,52 +1,106 @@
 <form [formGroup]="formVendascomandas">
   <div class="col-lg-12 col-md-12">
     <div class="card">
-      <div class="card-header ">
-        <h6 class="title d-inline">Vendas-Comandas</h6>
-      </div>
-      <div class="card-body row">
-        <div class="mr-6 col-sm-12 ">
+      <div class="card-header row">
+        <div class="form-group col-sm-12">
           <label>Tipo de Vendas:</label>
-        </div>
-        <label class="btn btn-sm btn-primary btn-simple" id="1">
-          <input type="radio" name="relevancia" formControlName="relevancia"> Membro
-        </label>
-        <label class="btn btn-sm btn-primary btn-simple " id="2">
-          <input type="radio" name="relevancia" formControlName="relevancia"> Comanda
-        </label>
-        <div class="col-sm-9">
-          <input type="text" class="form-control" placeholder="Membro/Candidato" aria-label="MembroCandidato"
-                 id="MembroCandidato" formControlName="nome">
+
+          <label class="btn btn-sm btn-primary btn-simple" id="1">
+            <input type="radio" name="relevancia"> Membro
+          </label>
+          <label class="btn btn-sm btn-primary btn-simple " id="2">
+            <input type="radio" name="relevancia"> Comanda
+          </label>
         </div>
 
-
-        <div class="form-group col-sm-4">
+        <div class="form-group col-sm-12">
+          <select class="form-select " aria-label="Default select example ">
+            <option *ngFor="let membro of consultaMembros">{{ membro.nome }}</option>
+          </select>
+        </div>
+        <div class="form-group col-sm-3">
+          <label>Codigo do Produto</label>
           <input type="text" class="form-control" placeholder="Código do Produto" aria-label="CodigoProduto"
-                 id="CodigoProduto" >
+                 id="CodigoProduto" (blur)="buscarProduto()" formControlName="codigoProduto">
         </div>
 
-        <div class="form-group col-sm-4">
+        <div class="form-group col-sm-3">
+          <label>Nome do Produto</label>
           <input type="text" class="form-control" placeholder="Nome do Produto" aria-label="NomeProduto"
-                 id="NomeProduto" formControlName="cpf">
+                 id="NomeProduto" formControlName="nomeProduto">
         </div>
 
         <div class="form-group col-sm-2">
-          <input type="text" class="form-control" placeholder="Valor" aria-label="Valor" id="valor"
-                 formControlName="telefone">
+          <label>Valor</label>
+
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">R$</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Valor" aria-label="Valor" id="valor "
+                   formControlName="valor" >
+          </div>
         </div>
 
+
         <div class="form-group col-sm-2">
+          <label>Quantidade</label>
           <input type="text" class="form-control" placeholder="Quantidade" aria-label="Quantidade" id="Quantidade"
-                 formControlName="telefone">
+                 formControlName="quantidadeProduto">
         </div>
-        <div class="col-sm-12">
+        <div class="col-sm-2">
           <div class="float-right">
-            <button class="btn btn-default mr-2"> Limpar</button>
-            <button class="btn btn-primary"> Gravar</button>
+            <button class="btn btn-primary mt-4"> Adicionar</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
+  <!--inciando segunda tabela -->
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+      <div class="card-header ">
+        <h6 class="title d-inline">Vendas</h6>
+      </div>
+      <div class="col-sm-12">
+        <table class="table table-bordered">
+          <thead>
+          <tr class="text-center">
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Valor</th>
+            <th scop="col">Remover</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr class="text-center">
+            <td>#</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="text-center">
+              <button class="btn btn-default  p-0"><i class="fa fa-trash " aria-hidden="false"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">Total Geral:</td>
+            <td>R$: 00,00</td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="col-sm-12">
+          <div class="float-right">
+            <button class="btn btn-primary mr-2"> Atualizar</button>
+            <button class="btn btn-primary"> Pagar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </form>
+
+
+
+
