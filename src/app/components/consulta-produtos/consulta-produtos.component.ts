@@ -39,10 +39,15 @@ export class ConsultaProdutosComponent implements OnInit {
     this.http.get<Produto[]>(this.apiURl).subscribe(resultado => {
       this.retornoApi = resultado;
     });
-
-
-
   }
+
+  deletarProduto(idProduto: number): void {
+    this.http.delete(this.apiURl + '/' + idProduto).subscribe(resultado =>{
+      SwallUtil.mensagemSucesso( "Deletado com sucesso bundão!!! ");
+      this.buscar();
+    });
+  }
+
 
 
 }

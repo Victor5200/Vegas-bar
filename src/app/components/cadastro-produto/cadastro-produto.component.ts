@@ -35,12 +35,13 @@ export class CadastroProdutoComponent implements OnInit {
     });
   }
 
-  salvar() {
+  salvar(): void {
     const produto = this.formProduto.value;
     this.http.post(this.apiURL, produto)
       .subscribe(() => SwallUtil.mensagemSucesso("Deu Certo!!!"),
     error => SwallUtil.mensagemError("Deu errado besta!"));
   }
+
 }
 
 

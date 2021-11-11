@@ -3,6 +3,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {ConsultaMembros} from './consulta-membros';
 import {Membro} from '../cadastro-membros/membro';
 import {HttpClient} from '@angular/common/http';
+import {SwallUtil} from '../../shared/util/SwallUtil';
 
 
 @Component({
@@ -40,5 +41,12 @@ export class ConsultaMembrosComponent implements OnInit {
     this.http.get<Membro[]>(this.apiUrl).subscribe(resultado => {
       this.consultaMembros = resultado;
     });
+  }
+
+  deletarMembro(id: number): void{
+    this.http.delete(this.apiUrl + '/' + id).subscribe(resultado =>{
+      SwallUtil.mensagemSucesso(" Desonra para a Familia");
+      this.buscar()
+    })
   }
 }
