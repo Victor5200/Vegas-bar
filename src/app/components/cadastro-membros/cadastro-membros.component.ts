@@ -3,6 +3,8 @@ import {FormGroup, FormControl} from '@angular/forms';
 import {Membro} from './membro';
 import {HttpClient} from '@angular/common/http';
 import {SwallUtil} from '../../shared/util/SwallUtil';
+import {ActivatedRoute} from '@angular/router';
+import {ConsultaMembros} from '../consulta-membros/consulta-membros';
 
 @Component({
   selector: 'app-cadastro-membros',
@@ -18,12 +20,19 @@ export class CadastroMembrosComponent implements OnInit {
   telMask: any = "(00)00000-0000";
   cpfMask: any ="000.000.000-00";
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.createForm(new Membro());
-  };
+    const idRoute = this.route.snapshot.params.id;
+    if (!idRoute) {
+      this.createForm(new Membro());
+    } else {
+      this.http.get<Membro>(this.apiURL + '/' + idRoute).subscribe(resultado => this.createForm(resultado));
+
+    }
+
+  }
 
   createForm(membros: Membro): void {
     this.formMembros = new FormGroup({
@@ -31,7 +40,7 @@ export class CadastroMembrosComponent implements OnInit {
       cpf: new FormControl(membros.cpf),
       telefone: new FormControl(membros.telefone),
       inadiplencia: new FormControl(membros.inadiplencia),
-      relevancia: new FormControl('Fullpatch'),
+      relevancia: new FormControl(membros.relevancia ? membros.relevancia : 'Hangaround'),
     });
   };
 

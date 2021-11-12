@@ -13,12 +13,13 @@ import {CaixaComponent} from './components/caixa/caixa.component';
 import {HeaderComponent} from './shared/header/header.component';
 import {NavbarComponent} from './shared/navbar/navbar.component';
 import {CadastroMembrosComponent} from './components/cadastro-membros/cadastro-membros.component';
-import { VedasComandasComponent } from './vedas-comandas/vedas-comandas.component';
+import { VedasComandasComponent } from './vedas-comanda/vedas-comandas.component';
 import { ConsultaProdutosComponent } from './components/consulta-produtos/consulta-produtos.component';
 import { ConsultaMembrosComponent } from './components/consulta-membros/consulta-membros.component';
 import { RelatorioVendasComponent } from './components/relatorio-vendas/relatorio-vendas.component';
 import {HttpClientModule} from '@angular/common/http';
 import {IConfig, NgxMaskModule} from 'ngx-mask';
+import { ConsultaVendaComponent } from './components/consulta-venda/consulta-venda.component';
 
 
 const maskConfig: Partial<IConfig> = {
@@ -40,6 +41,7 @@ const maskConfig: Partial<IConfig> = {
     RelatorioVendasComponent,
     ConsultaProdutosComponent,
     ConsultaMembrosComponent,
+    ConsultaVendaComponent,
   ],
   imports: [
     BrowserModule,

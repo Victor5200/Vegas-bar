@@ -1,4 +1,4 @@
-<form [formGroup]="formVendascomandas">
+<form *ngIf="formVendascomandas" [formGroup]="formVendascomandas" >
   <div class="col-lg-12 col-md-12">
     <div class="card">
       <div class="card-header row">
@@ -14,8 +14,9 @@
         </div>
 
         <div class="form-group col-sm-12">
-          <select class="form-select " aria-label="Default select example ">
-            <option *ngFor="let membro of consultaMembros">{{ membro.nome }}</option>
+          <select class="form-select " aria-label="Default select example" [compareWith]="compareFn" formControlName="membro">
+            <option [ngValue]="null" disabled>selecione o membro</option>
+            <option *ngFor="let membro of consultaMembros" [ngValue]="membro" >{{ membro.nome }}</option>
           </select>
         </div>
         <div class="form-group col-sm-3">
@@ -77,13 +78,13 @@
           </thead>
           <tbody>
           <tr class="text-center" *ngFor="let itens of retornaListaItens()">
-            <td>{{itens.produto.idProduto}}</td>
+            <td>{{itens.produto.idProduto }}</td>
             <td>{{itens.produto.nome}}</td>
-            <td>{{itens.produto.valorVenda}}</td>
+            <td>{{itens.produto.valorVenda | mask:'99.99'}}</td>
             <td>{{itens.quantidade}}</td>
             <td>{{itens.valor}}</td>
             <td class="text-center">
-              <button class="btn btn-default  p-0"><i class="fa fa-trash " aria-hidden="false"></i></button>
+              <button class="btn btn-default  p-0"><i class="fa fa-trash " aria-hidden="false " ></i></button>
             </td>
           </tr>
           <tr>
@@ -94,7 +95,7 @@
         </table>
         <div class="col-sm-12">
           <div class="float-right">
-            <button class="btn btn-primary mr-2"> Atualizar</button>
+            <button class="btn btn-primary mr-2" (click)="salvarComanda()"> Atualizar</button>
             <button class="btn btn-primary"> Pagar</button>
           </div>
         </div>

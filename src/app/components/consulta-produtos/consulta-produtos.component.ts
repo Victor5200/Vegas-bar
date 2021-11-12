@@ -29,8 +29,8 @@ export class ConsultaProdutosComponent implements OnInit {
 
   createForm(consultaProdutos: ConsultaProdutos): void {
     this.formConsultaProdutos = new FormGroup({
-      IdProduto: new FormControl(consultaProdutos.idProduto),
-      NomeProduto: new FormControl(consultaProdutos.nomeProduto)
+      idProduto: new FormControl(consultaProdutos.idProduto),
+      nomeProduto: new FormControl(consultaProdutos.nomeProduto)
     });
 
   }
@@ -48,6 +48,8 @@ export class ConsultaProdutosComponent implements OnInit {
     });
   }
 
-
+limpar(): void{
+    this.formConsultaProdutos.reset();
+}
 
 }

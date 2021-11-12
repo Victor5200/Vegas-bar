@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {VendasComandas} from '../../vedas-comandas/VendasComandas';
+import {VendasComandas} from '../../vedas-comanda/VendasComandas';
+import {SwallUtil} from '../../shared/util/SwallUtil';
 
 @Component({
   selector: 'app-consulta-venda',
@@ -29,6 +30,12 @@ export class ConsultaVendaComponent implements OnInit {
     this.http.get<VendasComandas[]>(this.vendaUrl).subscribe(resultado => {
       this.listaComanda = resultado;
 
+    });
+  }
+  deletarVenda(idVenda: number): void{
+    this.http.delete(this.vendaUrl + '/' + idVenda).subscribe(resultado =>{
+      SwallUtil.mensagemSucesso("Deleta não pow, Gasta essa Grana ai!!! ");
+      this.buscarVenda();
     });
   }
 }

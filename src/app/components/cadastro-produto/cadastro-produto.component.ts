@@ -4,6 +4,7 @@ import {Produto} from './produto';
 import {HttpClient} from '@angular/common/http';
 import {SwallUtil} from '../../shared/util/SwallUtil';
 import {switchAll} from 'rxjs/operators';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-cadastro-produto',
@@ -17,11 +18,20 @@ export class CadastroProdutoComponent implements OnInit {
   precoMask: any ="00.00";
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private  route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.createForm(new Produto());
+    const idRota = this.route.snapshot.params.id;
+    if (!idRota){
+      this.createForm(new Produto());
+    } else{
+
+      this.http.get<Produto>(this.apiURL + '/' + idRota).subscribe( resultado =>{
+        this.createForm(resultado)
+      });
+    }
+
   }
 
   createForm(produto: Produto): void {

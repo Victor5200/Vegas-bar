@@ -24,7 +24,7 @@
         </div>
         <div class="col-sm-12">
           <div class=" float-right">
-            <button class="btn btn-default mr-2">Limpar</button>
+            <button class="btn btn-default mr-2" (click)="limpar()">Limpar</button>
             <button class="btn btn-primary">Pesquisar</button>
           </div>
         </div>
@@ -54,14 +54,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="text-center" *ngFor="let membro of consultaMembros">
+        <tr class="text-center" *ngFor="let membro of consultaMembros" >
           <th scope="row">1</th>
           <td>{{membro.nome}}</td>
           <td>{{membro.relevancia}}</td>
 
-          <td class="text-center"><button class="btn btn-default mr-2 p-0" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-
-          </button><button class="btn btn-default  p-0" ><i class="fa fa-trash " aria-hidden="false" (click)="deletarMembro(membro.id)"></i></button></td>
+          <td class="text-center">
+            <button class="btn btn-default mr-2 p-0" ><i class="fa fa-pencil-square-o" aria-hidden="true" routerLink="/cadastro-membros/{{membro.id}}"></i></button>
+            <button class="btn btn-default  p-0" ><i class="fa fa-trash " aria-hidden="false" (click)="deletarMembro(membro.id)"></i></button></td>
         </tr>
         </tbody>
       </table>

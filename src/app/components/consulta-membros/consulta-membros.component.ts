@@ -4,6 +4,7 @@ import {ConsultaMembros} from './consulta-membros';
 import {Membro} from '../cadastro-membros/membro';
 import {HttpClient} from '@angular/common/http';
 import {SwallUtil} from '../../shared/util/SwallUtil';
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -21,8 +22,10 @@ export class ConsultaMembrosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.createForm(new ConsultaMembros());
+      this.createForm(new ConsultaMembros());
+
     this.buscar();
+
   }
 
 
@@ -49,4 +52,8 @@ export class ConsultaMembrosComponent implements OnInit {
       this.buscar()
     })
   }
+  limpar(): void{
+    this.formConsultaMembros.reset();
+  }
+
 }
