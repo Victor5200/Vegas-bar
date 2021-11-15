@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -20,7 +20,9 @@ import { RelatorioVendasComponent } from './components/relatorio-vendas/relatori
 import {HttpClientModule} from '@angular/common/http';
 import {IConfig, NgxMaskModule} from 'ngx-mask';
 import { ConsultaVendaComponent } from './components/consulta-venda/consulta-venda.component';
-
+import {registerLocaleData} from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+registerLocaleData(localePt);
 
 const maskConfig: Partial<IConfig> = {
   validation: false
@@ -52,7 +54,9 @@ const maskConfig: Partial<IConfig> = {
 
 
   ],
-  providers: [],
+  providers: [{
+    provide: LOCALE_ID, useValue: 'pt-BR'
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

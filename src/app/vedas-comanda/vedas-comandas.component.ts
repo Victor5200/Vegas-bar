@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {Produto} from '../components/cadastro-produto/produto';
 import {SwallUtil} from '../shared/util/SwallUtil';
 import {ActivatedRoute} from '@angular/router';
+import {switchAll} from 'rxjs/operators';
 
 @Component({
   selector: 'app-vedas-comandas',
@@ -19,6 +20,10 @@ export class VedasComandasComponent implements OnInit {
   readonly apiProduto: string = 'http://localhost:8080/api/produtos';
   produtoSelecionado: Produto;
   readonly apiVendas: string = 'http://localhost:8080/api/vendas';
+  comandasAbertas: VendasComandas[];
+  readonly apiComanda : string = 'http://localhost:8080/api/vendas/daylist';
+
+
 
   constructor(private http: HttpClient, private route: ActivatedRoute) {
   }
@@ -35,7 +40,9 @@ export class VedasComandasComponent implements OnInit {
     }
 
 
+    // this.preencheComandaSelecionada() nao precisa, isso eh no change do select
     this.buscar();
+    this.comanda();
   }
 
   compareFn(m1: Membro, m2: Membro): boolean {
@@ -52,11 +59,13 @@ export class VedasComandasComponent implements OnInit {
       itens: new FormArray([]),
       membro: new FormControl(vendasComandas.membro),
 
+
       // atributos de controle da tela
       nomeProduto: new FormControl(null),
       quantidadeProduto: new FormControl(null),
       codigoProduto: new FormControl(null),
       valor: new FormControl(null),
+      tipoVenda: new FormControl(null)
     });
 
     this.formVendascomandas.get('membro').valueChanges.subscribe(value => {
@@ -148,5 +157,15 @@ export class VedasComandasComponent implements OnInit {
     });
   }
 
+  comanda(): void{
 
+    this.http.get<VendasComandas[]>(this.apiComanda).subscribe(resultado => {
+      this.comandasAbertas = resultado;
+    });
+  }
+
+
+  preencheComandaSelecionada() {
+    this.populaFormComRetornoBackend(null);
+  }
 }

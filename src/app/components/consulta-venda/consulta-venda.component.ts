@@ -25,17 +25,24 @@ export class ConsultaVendaComponent implements OnInit {
   }
 
 
-
   buscarVenda(): void {
     this.http.get<VendasComandas[]>(this.vendaUrl).subscribe(resultado => {
       this.listaComanda = resultado;
 
     });
   }
-  deletarVenda(idVenda: number): void{
-    this.http.delete(this.vendaUrl + '/' + idVenda).subscribe(resultado =>{
-      SwallUtil.mensagemSucesso("Deleta não pow, Gasta essa Grana ai!!! ");
+
+  deletarVenda(idVenda: number): void {
+    this.http.delete(this.vendaUrl + '/' + idVenda).subscribe(resultado => {
+      SwallUtil.mensagemSucesso('Deleta não pow, Gasta essa Grana ai!!! ');
       this.buscarVenda();
+    });
+  }
+
+  pagarVenda(vendasComandas: VendasComandas): void {
+    vendasComandas.pago = true;
+    this.http.post<VendasComandas>(this.vendaUrl, vendasComandas).subscribe(resultado => {
+      SwallUtil.mensagemSucesso('Pago');
     });
   }
 }

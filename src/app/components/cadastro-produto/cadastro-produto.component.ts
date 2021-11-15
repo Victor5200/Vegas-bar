@@ -15,7 +15,7 @@ export class CadastroProdutoComponent implements OnInit {
   formProduto: FormGroup;
   readonly apiURL: string = 'http://localhost:8080/api/produtos';
   cdiMask: any = "000";
-  precoMask: any ="00.00";
+  precoMask: any ="99.99";
 
 
   constructor(private http: HttpClient, private  route: ActivatedRoute) {

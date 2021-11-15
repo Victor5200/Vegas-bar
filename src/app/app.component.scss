@@ -1,0 +1,9 @@
+
+input[type=number]::-webkit-inner-spin-buttton {
+  -webkit-appaearance:nome;
+}
+
+input[type=number]{
+  -moz-appearance: textfield;
+  appearance: textfield;
+}

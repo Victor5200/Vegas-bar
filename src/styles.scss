@@ -43,3 +43,13 @@ a {
 .input-group-prepend {
   height: calc(2.25rem + 2px);
 }
+input[type=number]::-webkit-inner-spin-buttton {
+  -webkit-appaearance:none;
+}
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appaearance:none;
+}
+input[type=number]{
+ -moz-appearance: textfield;
+  appearance: textfield;
+}
