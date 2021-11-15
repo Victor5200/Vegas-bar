@@ -21,7 +21,9 @@
 
         <div class="col-sm-12 row" *ngIf="this.formVendascomandas.value.tipoVenda === 'comanda' ">
           <div class="form-group col-sm-12" >
-            <select class="form-select " aria-label="Default select example" [compareWith]="compareFnComanda" formControlName="comandaSelecionada"  (change)="preencheComandaSelecionada">
+            <select class="form-select " aria-label="Default select example"
+                    [compareWith]="compareFnComanda" formControlName="comandaSelecionada"
+                    (change)="preencheComandaSelecionada()">
               <option [ngValue]="null" disabled>selecione a Comanda</option>
               <option *ngFor="let comanda of comandasAbertas" [ngValue]="comanda" >{{ comanda.descricao }}</option>
             </select>

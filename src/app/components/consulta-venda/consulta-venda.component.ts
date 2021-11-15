@@ -43,6 +43,8 @@ export class ConsultaVendaComponent implements OnInit {
     vendasComandas.pago = true;
     this.http.post<VendasComandas>(this.vendaUrl, vendasComandas).subscribe(resultado => {
       SwallUtil.mensagemSucesso('Pago');
+
+
     });
   }
 }

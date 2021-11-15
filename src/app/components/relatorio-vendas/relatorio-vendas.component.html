@@ -1,14 +1,20 @@
 <form [formGroup]="formRelatorio">
   <div class="card">
     <div class="card-header">
-      <h4 class="card-title">Vendas</h4>
+      <h4 class="card-title">Relatorio de Vendas</h4>
     </div>
 
-    <div class="card-body">
-      <div class="form-group col-sm-12">
-        <label> Membro/Comanda</label>
-        <input type="text" class="form-control" formControlName="membroComandas">
+    <div class="card-body row ">
+      <div class="form-group  col-sm-6" >
+        <label> Data inicial:</label>
+        <input type="date" class="form-control" formControlName="membroComandas">
       </div>
+      <div class="form-group  col-sm-6" >
+        <label> Data Final:</label>
+        <input type="date" class="form-control" formControlName="membroComandas">
+      </div>
+
+
       <div class="float-right">
         <button class="btn btn-default mr-2"> Limpar</button>
         <button class="btn btn-default mr-2"> Pesquisar</button>
@@ -19,18 +25,21 @@
           <tr class="text-center">
             <th scope="col">#</th>
             <th scope="col">Descrição</th>
-            <th scope="col">Produto</th>
-            <th scope="col">Quantidade</th>
-            <th scope="col">Ações</th>
+            <th scope="col">Valor</th>
           </tr>
+
+
           </thead>
           <tbody>
-          <tr class="text-center">
-            <th scope="row">1</th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
-            <th scope="row"></th>
+          <tr class="text-center" *ngFor="let comanda of listaComanda" >
+            <th scope="row">{{comanda.idVenda }}</th>
+            <th scope="row">{{comanda.membro ? comanda?.membro?.nome : comanda.descricao}}</th>
+            <th scope="row">{{comanda.valorTotal | currency:'BRL':true:'1.2-2'}}</th>
+          </tr>
+
+          <tr class="text-center ">
+            <td colspan="2" >Valor Total: </td>
+            <td>{{somar() | currency:'BRL':true:'1.2-2'}}</td>
           </tr>
           </tbody>
         </table>

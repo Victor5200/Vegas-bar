@@ -159,6 +159,8 @@ export class VedasComandasComponent implements OnInit {
     this.http.post<VendasComandas>(this.apiVendas, vendasComandas).subscribe(resultado => {
       SwallUtil.mensagemSucesso('Comanda Salva Lindão!!');
       this.populaFormComRetornoBackend(resultado);
+    }, error => {
+      SwallUtil.mensagemError(error);
     });
   }
 
@@ -171,6 +173,22 @@ export class VedasComandasComponent implements OnInit {
 
 
   preencheComandaSelecionada() {
-    this.populaFormComRetornoBackend(null);
+    const vendasComandas = this.formVendascomandas.get('comandaSelecionada').value;
+    this.formVendascomandas.patchValue({
+      idVenda: vendasComandas.idVenda,
+      data: vendasComandas.data,
+      valorTotal: vendasComandas.valorTotal,
+      descricao: vendasComandas.descricao,
+      pago: vendasComandas.pago,
+    });
+
+    const itens = this.formVendascomandas.get('itens') as FormArray;
+    vendasComandas.itens.forEach(item => {
+      itens.push(new FormGroup({
+        produto: new FormControl(item.produto),
+        quantidade: new FormControl(item.quantidade),
+        valor: new FormControl(item.quantidade * item.produto.valorVenda),
+      }));
+    });
   }
 }
