@@ -49,6 +49,10 @@ export class VedasComandasComponent implements OnInit {
     return m1 && m2 ? m1.id === m2.id : m1 === m2;
   }
 
+  compareFnComanda(m1: VendasComandas, m2: VendasComandas): boolean {
+    return m1 && m2 ? m1.idVenda === m2.idVenda : m1 === m2;
+  }
+
   creatForm(vendasComandas: VendasComandas): void {
     this.formVendascomandas = new FormGroup({
       idVenda: new FormControl(vendasComandas.idVenda),
@@ -62,6 +66,7 @@ export class VedasComandasComponent implements OnInit {
 
       // atributos de controle da tela
       nomeProduto: new FormControl(null),
+      comandaSelecionada: new FormControl(null),
       quantidadeProduto: new FormControl(null),
       codigoProduto: new FormControl(null),
       valor: new FormControl(null),
