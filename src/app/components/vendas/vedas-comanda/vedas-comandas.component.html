@@ -6,10 +6,10 @@
           <label>Tipo de Vendas:</label>
 
           <label class="btn btn-sm btn-primary btn-simple" id="1">
-            <input type="radio" name="relevancia" formControlName="tipoVenda" value="membro"> Membro
+            <input type="radio" name="relevancia" formControlName="tipoVenda" (click)="limparForm(false)" value="membro"> Membro
           </label>
           <label class="btn btn-sm btn-primary btn-simple " id="2">
-            <input type="radio" name="relevancia" formControlName="tipoVenda" value="comanda"> Comanda
+            <input type="radio" name="relevancia" formControlName="tipoVenda" (click)="limparForm(true)" value="comanda"> Comanda
           </label>
         </div>
         <div class="form-group col-sm-12" *ngIf="this.formVendascomandas.value.tipoVenda === 'membro' ">
@@ -22,7 +22,7 @@
         <div class="col-sm-12 row" *ngIf="this.formVendascomandas.value.tipoVenda === 'comanda' ">
           <div class="form-group col-sm-12" >
             <select class="form-select " aria-label="Default select example"
-                    [compareWith]="compareFnComanda" formControlName="comandaSelecionada"
+                    [compareWith]="compareFn" formControlName="comandaSelecionada"
                     (change)="preencheComandaSelecionada()">
               <option [ngValue]="null" disabled>selecione a Comanda</option>
               <option *ngFor="let comanda of comandasAbertas" [ngValue]="comanda" >{{ comanda.descricao }}</option>
@@ -95,7 +95,7 @@
           </thead>
           <tbody>
           <tr class="text-center" *ngFor="let itens of retornaListaItens()">
-            <td>{{itens.produto.idProduto }}</td>
+            <td>{{itens.produto.id }}</td>
             <td>{{itens.produto.nome}}</td>
             <td>{{itens.produto.valorVenda  | currency:'BRL':true:'1.2-2'}}</td>
             <td>{{itens.quantidade}}</td>

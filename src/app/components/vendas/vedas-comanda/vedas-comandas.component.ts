@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {VendasComandas} from './VendasComandas';
-import {Membro} from '../components/cadastro-membros/membro';
-import {HttpClient} from '@angular/common/http';
-import {Produto} from '../components/cadastro-produto/produto';
-import {SwallUtil} from '../shared/util/SwallUtil';
+import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import {SwallUtil} from '../../../shared/util/SwallUtil';
 import {ActivatedRoute} from '@angular/router';
-import {switchAll} from 'rxjs/operators';
+import {Membro, Produto, VendasComandas} from "../../../shared/models";
+import {ComandasService} from "../../../shared/services/comandas.service";
+import {MembroService} from "../../../shared/services/membro-service";
+import {ProdutoService} from "../../../shared/services/produto-service";
 
 @Component({
   selector: 'app-vedas-comandas',
@@ -15,47 +14,38 @@ import {switchAll} from 'rxjs/operators';
 })
 export class VedasComandasComponent implements OnInit {
   formVendascomandas: FormGroup;
-  readonly apiUrl: string = 'http://localhost:8080/api/membro';
   consultaMembros: Membro[];
-  readonly apiProduto: string = 'http://localhost:8080/api/produtos';
   produtoSelecionado: Produto;
-  readonly apiVendas: string = 'http://localhost:8080/api/vendas';
   comandasAbertas: VendasComandas[];
-  readonly apiComanda : string = 'http://localhost:8080/api/vendas/daylist';
 
-
-
-  constructor(private http: HttpClient, private route: ActivatedRoute) {
+  constructor(private comandaService: ComandasService,
+              private membroService: MembroService,
+              private produtoService: ProdutoService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     const idRota = this.route.snapshot.params.id;
 
     if (!idRota) {
-      this.creatForm(new VendasComandas());
+      this.creatForm(new VendasComandas(), false);
     } else {
-      this.http.get<VendasComandas>(this.apiVendas + '/' + idRota).subscribe(res => {
-        this.populaFormComRetornoBackend(res);
+      this.comandaService.buscarPorId(idRota).subscribe(res => {
+        this.populaFormComRetornoBackend(res, !res.membro);
       });
     }
 
-
-    // this.preencheComandaSelecionada() nao precisa, isso eh no change do select
     this.buscar();
     this.comanda();
   }
 
-  compareFn(m1: Membro, m2: Membro): boolean {
+  compareFn(m1: any, m2: any): boolean {
     return m1 && m2 ? m1.id === m2.id : m1 === m2;
   }
 
-  compareFnComanda(m1: VendasComandas, m2: VendasComandas): boolean {
-    return m1 && m2 ? m1.idVenda === m2.idVenda : m1 === m2;
-  }
-
-  creatForm(vendasComandas: VendasComandas): void {
+  creatForm(vendasComandas: VendasComandas, isComanda): void {
     this.formVendascomandas = new FormGroup({
-      idVenda: new FormControl(vendasComandas.idVenda),
+      id: new FormControl(vendasComandas.id),
       data: new FormControl(vendasComandas.data),
       valorTotal: new FormControl(vendasComandas.valorTotal),
       descricao: new FormControl(vendasComandas.descricao),
@@ -63,32 +53,35 @@ export class VedasComandasComponent implements OnInit {
       itens: new FormArray([]),
       membro: new FormControl(vendasComandas.membro),
 
-
       // atributos de controle da tela
       nomeProduto: new FormControl(null),
       comandaSelecionada: new FormControl(null),
       quantidadeProduto: new FormControl(null),
       codigoProduto: new FormControl(null),
       valor: new FormControl(null),
-      tipoVenda: new FormControl(null)
+      tipoVenda: new FormControl(isComanda ? "comanda" : "membro")
     });
 
+    this.executaValuChangeMembro();
+  }
+
+  private executaValuChangeMembro() {
     this.formVendascomandas.get('membro').valueChanges.subscribe(value => {
-      this.http.get<VendasComandas>(this.apiVendas + '/membro/' + value.id).subscribe(res => {
+      this.comandaService.buscarComandasAbertaMembro(value.id).subscribe(res => {
         if (res) {
-          this.populaFormComRetornoBackend(res);
+          this.populaFormComRetornoBackend(res, false);
         } else {
           (this.formVendascomandas.get('itens') as FormArray).clear();
           this.formVendascomandas.patchValue({
-            idVenda: null
+            id: null
           });
         }
       });
     });
   }
 
-  private populaFormComRetornoBackend(res: VendasComandas) {
-    this.creatForm(res);
+  private populaFormComRetornoBackend(res: VendasComandas, isComanda) {
+    this.creatForm(res, isComanda);
 
     const itens = this.formVendascomandas.get('itens') as FormArray;
     res.itens.forEach(item => {
@@ -98,20 +91,18 @@ export class VedasComandasComponent implements OnInit {
         valor: new FormControl(item.quantidade * item.produto.valorVenda),
       }));
     });
-
   }
 
   buscar(): void {
-    this.http.get<Membro[]>(this.apiUrl).subscribe(resultado => {
+    this.membroService.buscarTodas().subscribe(resultado => {
       this.consultaMembros = resultado;
     });
 
   }
 
-
   buscarProduto(): void {
     const form = this.formVendascomandas.value;
-    this.http.get<Produto>(this.apiProduto + '/' + form.codigoProduto).subscribe(resultado => {
+    this.produtoService.buscarPorId(form.codigoProduto).subscribe(resultado => {
       this.formVendascomandas.patchValue({
         nomeProduto: resultado.nome,
         valor: resultado.valorVenda
@@ -156,17 +147,16 @@ export class VedasComandasComponent implements OnInit {
   salvarComanda(): void {
     const vendasComandas = this.formVendascomandas.value;
     vendasComandas.valorTotal = this.somar();
-    this.http.post<VendasComandas>(this.apiVendas, vendasComandas).subscribe(resultado => {
+    this.comandaService.salvar(vendasComandas).subscribe(resultado => {
       SwallUtil.mensagemSucesso('Comanda Salva Lindão!!');
-      this.populaFormComRetornoBackend(resultado);
+      this.populaFormComRetornoBackend(resultado, !resultado.membro);
     }, error => {
       SwallUtil.mensagemError(error);
     });
   }
 
-  comanda(): void{
-
-    this.http.get<VendasComandas[]>(this.apiComanda).subscribe(resultado => {
+  comanda(): void {
+    this.comandaService.buscarTodasComandasAbertas().subscribe(resultado => {
       this.comandasAbertas = resultado;
     });
   }
@@ -175,7 +165,7 @@ export class VedasComandasComponent implements OnInit {
   preencheComandaSelecionada() {
     const vendasComandas = this.formVendascomandas.get('comandaSelecionada').value;
     this.formVendascomandas.patchValue({
-      idVenda: vendasComandas.idVenda,
+      id: vendasComandas.id,
       data: vendasComandas.data,
       valorTotal: vendasComandas.valorTotal,
       descricao: vendasComandas.descricao,
@@ -190,5 +180,13 @@ export class VedasComandasComponent implements OnInit {
         valor: new FormControl(item.quantidade * item.produto.valorVenda),
       }));
     });
+  }
+
+  limparForm(isComanda) {
+    this.creatForm(new VendasComandas(), isComanda)
+
+    if (isComanda) {
+      this.comanda()
+    }
   }
 }

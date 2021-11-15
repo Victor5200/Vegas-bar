@@ -19,13 +19,13 @@
         </thead>
         <tbody>
         <tr class="text-center" *ngFor="let comanda of listaComanda">
-          <th scope="row">{{comanda.idVenda}}</th>
+          <th scope="row">{{comanda.id}}</th>
           <td>{{comanda.membro ? comanda?.membro?.nome : comanda.descricao }}</td>
           <td>{{comanda.valorTotal | currency:'BRL':true:'1.2-2'}}</td>
 
           <td class="text-center" *ngIf="!comanda.pago">
-            <button class="btn btn-default mr-2 p-0" ><i class="fa fa-pencil-square-o" routerLink="/vendas-comandas/{{comanda.idVenda}}" aria-hidden="true"></i></button>
-            <button class="btn btn-default  mr-2 p-0" ><i class="fa fa-trash " aria-hidden="false" (click)="deletarVenda(comanda.idVenda)"></i></button>
+            <button class="btn btn-default mr-2 p-0" ><i class="fa fa-pencil-square-o" routerLink="/vendas-comandas/{{comanda.id}}" aria-hidden="true"></i></button>
+            <button class="btn btn-default  mr-2 p-0" ><i class="fa fa-trash " aria-hidden="false" (click)="deletarVenda(comanda.id)"></i></button>
             <button class="btn btn-default p-0" (click)="pagarVenda(comanda)"><i class="fa fa-usd" aria-hidden="true"></i>
             </button>
 

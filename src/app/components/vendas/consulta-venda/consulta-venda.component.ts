@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {VendasComandas} from '../../vedas-comanda/VendasComandas';
-import {SwallUtil} from '../../shared/util/SwallUtil';
+import {SwallUtil} from '../../../shared/util/SwallUtil';
+import {VendasComandas} from "../../../shared/models";
+import {ComandasService} from "../../../shared/services/comandas.service";
 
 @Component({
   selector: 'app-consulta-venda',
@@ -9,31 +9,24 @@ import {SwallUtil} from '../../shared/util/SwallUtil';
   styleUrls: ['./consulta-venda.component.scss']
 })
 export class ConsultaVendaComponent implements OnInit {
-  formVendas: any;
-  telMask: any;
-  cpfMask: any;
-  consultaVenda: any;
-  formConsultaVenda: any;
-  readonly vendaUrl: string = 'http://localhost:8080/api/vendas';
   listaComanda: VendasComandas[];
 
-  constructor(private http: HttpClient) {
+  constructor(private comandaService: ComandasService) {
   }
 
   ngOnInit(): void {
     this.buscarVenda();
   }
 
-
   buscarVenda(): void {
-    this.http.get<VendasComandas[]>(this.vendaUrl).subscribe(resultado => {
+    this.comandaService.buscarTodas().subscribe(resultado => {
       this.listaComanda = resultado;
 
     });
   }
 
-  deletarVenda(idVenda: number): void {
-    this.http.delete(this.vendaUrl + '/' + idVenda).subscribe(resultado => {
+  deletarVenda(id: number): void {
+    this.comandaService.deletar(id).subscribe(resultado => {
       SwallUtil.mensagemSucesso('Deleta não pow, Gasta essa Grana ai!!! ');
       this.buscarVenda();
     });
@@ -41,7 +34,7 @@ export class ConsultaVendaComponent implements OnInit {
 
   pagarVenda(vendasComandas: VendasComandas): void {
     vendasComandas.pago = true;
-    this.http.post<VendasComandas>(this.vendaUrl, vendasComandas).subscribe(resultado => {
+    this.comandaService.salvar(vendasComandas).subscribe(resultado => {
       SwallUtil.mensagemSucesso('Pago');
 
 

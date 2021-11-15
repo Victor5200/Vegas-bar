@@ -7,7 +7,7 @@
       <div class="card-body row">
         <div class="col-sm-6">
           <input type="text" class="form-control" placeholder="Código do Produto" aria-label="CodigoProduto"
-                 id="CodigoProduto" formControlName="idProduto">
+                 id="CodigoProduto" formControlName="id">
         </div>
         <div class="col-sm-6">
           <input type="text" class="form-control" placeholder="Nome do Produto" aria-label="NomeProduto"
@@ -48,13 +48,13 @@
         </thead>
         <tbody>
         <tr class="text-center" *ngFor="let produto of retornoApi">
-          <th scope="row">{{produto.idProduto}}</th>
+          <th scope="row">{{produto.id}}</th>
           <td>{{produto.nome}}</td>
           <td>{{produto.valorVenda | currency:'BRL':true:'1.2-2'}}</td>
           <td>{{produto.quantidade}}</td>
           <td class="text-center">
-            <button class="btn btn-default mr-2 p-0"  routerLink="/cadastro-produto/{{produto.idProduto}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-            <button class="btn btn-default  p-0" ><i class="fa fa-trash " aria-hidden="false" (click)="deletarProduto(produto.idProduto)"></i></button></td>
+            <button class="btn btn-default mr-2 p-0"  routerLink="/cadastro-produto/{{produto.id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+            <button class="btn btn-default  p-0" ><i class="fa fa-trash " aria-hidden="false" (click)="deletarProduto(produto.id)"></i></button></td>
         </tr>
         </tbody>
       </table>

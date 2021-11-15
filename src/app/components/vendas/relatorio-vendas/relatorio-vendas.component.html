@@ -32,7 +32,7 @@
           </thead>
           <tbody>
           <tr class="text-center" *ngFor="let comanda of listaComanda" >
-            <th scope="row">{{comanda.idVenda }}</th>
+            <th scope="row">{{comanda.id }}</th>
             <th scope="row">{{comanda.membro ? comanda?.membro?.nome : comanda.descricao}}</th>
             <th scope="row">{{comanda.valorTotal | currency:'BRL':true:'1.2-2'}}</th>
           </tr>

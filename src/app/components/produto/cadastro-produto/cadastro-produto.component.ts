@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
-import {Produto} from './produto';
-import {HttpClient} from '@angular/common/http';
-import {SwallUtil} from '../../shared/util/SwallUtil';
-import {switchAll} from 'rxjs/operators';
+import {FormControl, FormGroup} from '@angular/forms';
+import {SwallUtil} from '../../../shared/util/SwallUtil';
 import {ActivatedRoute} from '@angular/router';
+import {Produto} from "../../../shared/models";
+import {ProdutoService} from "../../../shared/services/produto-service";
 
 @Component({
   selector: 'app-cadastro-produto',
@@ -13,25 +12,21 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class CadastroProdutoComponent implements OnInit {
   formProduto: FormGroup;
-  readonly apiURL: string = 'http://localhost:8080/api/produtos';
   cdiMask: any = "000";
-  precoMask: any ="99.99";
+  precoMask: any = "99.99";
 
 
-  constructor(private http: HttpClient, private  route: ActivatedRoute) {
-  }
+  constructor(private produtoService: ProdutoService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     const idRota = this.route.snapshot.params.id;
-    if (!idRota){
+    if (!idRota) {
       this.createForm(new Produto());
-    } else{
-
-      this.http.get<Produto>(this.apiURL + '/' + idRota).subscribe( resultado =>{
+    } else {
+      this.produtoService.buscarPorId(idRota).subscribe(resultado => {
         this.createForm(resultado)
       });
     }
-
   }
 
   createForm(produto: Produto): void {
@@ -39,7 +34,7 @@ export class CadastroProdutoComponent implements OnInit {
       nome: new FormControl(produto.nome),
       valorVenda: new FormControl(produto.valorVenda),
       fornecedor: new FormControl(produto.fornecedor),
-      idProduto: new FormControl(produto.idProduto),
+      id: new FormControl(produto.id),
       valorCusto: new FormControl(produto.valorCusto),
       quantidade: new FormControl(produto.quantidade)
     });
@@ -47,9 +42,8 @@ export class CadastroProdutoComponent implements OnInit {
 
   salvar(): void {
     const produto = this.formProduto.value;
-    this.http.post(this.apiURL, produto)
-      .subscribe(() => SwallUtil.mensagemSucesso("Deu Certo!!!"),
-    error => SwallUtil.mensagemError("Deu errado besta!"));
+    this.produtoService.salvar(produto).subscribe(() => SwallUtil.mensagemSucesso("Deu Certo!!!"),
+          error => SwallUtil.mensagemError("Deu errado besta!"));
   }
 
 }

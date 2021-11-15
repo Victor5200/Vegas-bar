@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import {FormGroup, FormControl} from '@angular/forms';
-import {Membro} from './membro';
-import {HttpClient} from '@angular/common/http';
-import {SwallUtil} from '../../shared/util/SwallUtil';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
+import {SwallUtil} from '../../../shared/util/SwallUtil';
 import {ActivatedRoute} from '@angular/router';
-import {ConsultaMembros} from '../consulta-membros/consulta-membros';
+import {Membro} from "../../../shared/models";
+import {MembroService} from "../../../shared/services/membro-service";
 
 @Component({
   selector: 'app-cadastro-membros',
@@ -12,24 +11,18 @@ import {ConsultaMembros} from '../consulta-membros/consulta-membros';
   styleUrls: ['./cadastro-membros.component.scss']
 })
 export class CadastroMembrosComponent implements OnInit {
-
-
   formMembros: FormGroup;
+  telMask: any = "(00) 00000-0000";
+  cpfMask: any = "000.000.000-00";
 
-  readonly apiURL: string = 'http://localhost:8080/api/membro';
-  telMask: any = "(00)00000-0000";
-  cpfMask: any ="000.000.000-00";
-
-  constructor(private http: HttpClient, private route: ActivatedRoute) {
-  }
+  constructor(private membroService: MembroService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     const idRoute = this.route.snapshot.params.id;
     if (!idRoute) {
       this.createForm(new Membro());
     } else {
-      this.http.get<Membro>(this.apiURL + '/' + idRoute).subscribe(resultado => this.createForm(resultado));
-
+      this.membroService.buscarPorId(idRoute).subscribe(resultado => this.createForm(resultado));
     }
 
   }
@@ -50,19 +43,15 @@ export class CadastroMembrosComponent implements OnInit {
 
   salvar() {
     const membros = this.formMembros.value;
-    this.http.post (this.apiURL, membros)
-      .subscribe(
-        resultado => {
-          SwallUtil.mensagemSucesso("Aiii Até que vc n e tão burro, deu certo!");
-          this.limpar()
-        },
-        erro => {
-          SwallUtil.mensagemError("Erro Trouxa faz de novo ai burrão");
-        }
-      );
+    this.membroService.salvar(membros).subscribe(resultado => {
+      SwallUtil.mensagemSucesso("Aiii Até que vc n e tão burro, deu certo!");
+      this.limpar()
+    }, erro => {
+      SwallUtil.mensagemError("Erro Trouxa faz de novo ai burrão");
+    });
   }
 
-  limpar(){
+  limpar() {
     this.formMembros.reset()
   }
 
