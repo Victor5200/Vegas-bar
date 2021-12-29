@@ -86,6 +86,7 @@ export class VedasComandasComponent implements OnInit {
     const itens = this.formVendascomandas.get('itens') as FormArray;
     res.itens.forEach(item => {
       itens.push(new FormGroup({
+        id: new FormControl(item.id),
         produto: new FormControl(item.produto),
         quantidade: new FormControl(item.quantidade),
         valor: new FormControl(item.quantidade * item.produto.valorVenda),
@@ -175,6 +176,7 @@ export class VedasComandasComponent implements OnInit {
     const itens = this.formVendascomandas.get('itens') as FormArray;
     vendasComandas.itens.forEach(item => {
       itens.push(new FormGroup({
+        id: new FormControl(item.id),
         produto: new FormControl(item.produto),
         quantidade: new FormControl(item.quantidade),
         valor: new FormControl(item.quantidade * item.produto.valorVenda),

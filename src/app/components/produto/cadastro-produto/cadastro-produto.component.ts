@@ -12,7 +12,7 @@ import {ProdutoService} from "../../../shared/services/produto-service";
 })
 export class CadastroProdutoComponent implements OnInit {
   formProduto: FormGroup;
-  cdiMask: any = "000";
+  cdiMask: any = "999";
   precoMask: any = "99.99";
 
 
