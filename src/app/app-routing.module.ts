@@ -9,21 +9,22 @@ import {ConsultaProdutosComponent} from './components/produto/consulta-produtos/
 import {ConsultaMembrosComponent} from './components/membro/consulta-membros/consulta-membros.component';
 import {RelatorioVendasComponent} from './components/vendas/relatorio-vendas/relatorio-vendas.component';
 import {ConsultaVendaComponent} from './components/vendas/consulta-venda/consulta-venda.component';
+import {AuthGuard} from "./interceptor/auth.guard";
 
 
 const routes: Routes = [
-  {path: '', component: ExemploComponent},
-  {path: 'cadastro-produto', component: CadastroProdutoComponent},
-  {path: 'cadastro-produto/:id', component: CadastroProdutoComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'cadastro-membros', component: CadastroMembrosComponent},
-  {path: 'cadastro-membros/:id', component: CadastroMembrosComponent},
-  {path: 'vendas-comandas', component: VedasComandasComponent},
-  {path: 'vendas-comandas/:id', component: VedasComandasComponent},
-  {path: 'consulta-produtos', component: ConsultaProdutosComponent},
-  {path: 'relatorio-vendas', component: RelatorioVendasComponent},
-  {path: 'consulta-membros', component: ConsultaMembrosComponent},
-  {path: 'consulta-venda', component: ConsultaVendaComponent}
+  {path: '', component: ExemploComponent, canActivate: [AuthGuard] },
+  {path: 'cadastro-produto', component: CadastroProdutoComponent, canActivate: [AuthGuard]},
+  {path: 'cadastro-produto/:id', component: CadastroProdutoComponent, canActivate: [AuthGuard]},
+  {path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
+  {path: 'cadastro-membros', component: CadastroMembrosComponent, canActivate: [AuthGuard]},
+  {path: 'cadastro-membros/:id', component: CadastroMembrosComponent, canActivate: [AuthGuard]},
+  {path: 'vendas-comandas', component: VedasComandasComponent, canActivate: [AuthGuard]},
+  {path: 'vendas-comandas/:id', component: VedasComandasComponent, canActivate: [AuthGuard]},
+  {path: 'consulta-produtos', component: ConsultaProdutosComponent, canActivate: [AuthGuard]},
+  {path: 'relatorio-vendas', component: RelatorioVendasComponent, canActivate: [AuthGuard]},
+  {path: 'consulta-membros', component: ConsultaMembrosComponent, canActivate: [AuthGuard]},
+  {path: 'consulta-venda', component: ConsultaVendaComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
