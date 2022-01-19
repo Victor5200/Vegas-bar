@@ -16,7 +16,7 @@ const routes: Routes = [
   {path: '', component: ExemploComponent, canActivate: [AuthGuard] },
   {path: 'cadastro-produto', component: CadastroProdutoComponent, canActivate: [AuthGuard]},
   {path: 'cadastro-produto/:id', component: CadastroProdutoComponent, canActivate: [AuthGuard]},
-  {path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
+  {path: 'login', component: LoginComponent},
   {path: 'cadastro-membros', component: CadastroMembrosComponent, canActivate: [AuthGuard]},
   {path: 'cadastro-membros/:id', component: CadastroMembrosComponent, canActivate: [AuthGuard]},
   {path: 'vendas-comandas', component: VedasComandasComponent, canActivate: [AuthGuard]},
