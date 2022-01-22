@@ -10,6 +10,7 @@ import {ConsultaMembrosComponent} from './components/membro/consulta-membros/con
 import {RelatorioVendasComponent} from './components/vendas/relatorio-vendas/relatorio-vendas.component';
 import {ConsultaVendaComponent} from './components/vendas/consulta-venda/consulta-venda.component';
 import {AuthGuard} from "./interceptor/auth.guard";
+import {ComprasComponent} from "./components/compras/compras.component";
 
 
 const routes: Routes = [
@@ -24,7 +25,8 @@ const routes: Routes = [
   {path: 'consulta-produtos', component: ConsultaProdutosComponent, canActivate: [AuthGuard]},
   {path: 'relatorio-vendas', component: RelatorioVendasComponent, canActivate: [AuthGuard]},
   {path: 'consulta-membros', component: ConsultaMembrosComponent, canActivate: [AuthGuard]},
-  {path: 'consulta-venda', component: ConsultaVendaComponent, canActivate: [AuthGuard]}
+  {path: 'consulta-venda', component: ConsultaVendaComponent, canActivate: [AuthGuard]},
+  {path: 'cadastrar-compra', component: ComprasComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

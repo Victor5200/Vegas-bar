@@ -16,11 +16,12 @@ import {VedasComandasComponent} from './components/vendas/vedas-comanda/vedas-co
 import {ConsultaProdutosComponent} from './components/produto/consulta-produtos/consulta-produtos.component';
 import {ConsultaMembrosComponent} from './components/membro/consulta-membros/consulta-membros.component';
 import {RelatorioVendasComponent} from './components/vendas/relatorio-vendas/relatorio-vendas.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {IConfig, NgxMaskModule} from 'ngx-mask';
 import {ConsultaVendaComponent} from './components/vendas/consulta-venda/consulta-venda.component';
 import {registerLocaleData} from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import {JwtInterceptor} from "./interceptor/jwt.interceptor";
 
 registerLocaleData(localePt);
 
@@ -53,7 +54,7 @@ const maskConfig: Partial<IConfig> = {
   ],
   providers: [{
     provide: LOCALE_ID, useValue: 'pt-BR'
-  }],
+  }, { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

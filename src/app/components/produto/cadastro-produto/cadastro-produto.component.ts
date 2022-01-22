@@ -13,10 +13,10 @@ import {ProdutoService} from "../../../shared/services/produto-service";
 export class CadastroProdutoComponent implements OnInit {
   formProduto: FormGroup;
   cdiMask: any = "999";
-  precoMask: any = "99.99";
 
 
-  constructor(private produtoService: ProdutoService, private route: ActivatedRoute) {}
+  constructor(private produtoService: ProdutoService, private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
     const idRota = this.route.snapshot.params.id;
@@ -42,8 +42,10 @@ export class CadastroProdutoComponent implements OnInit {
 
   salvar(): void {
     const produto = this.formProduto.value;
-    this.produtoService.salvar(produto).subscribe(() => SwallUtil.mensagemSucesso("Deu Certo!!!"),
-          error => SwallUtil.mensagemError("Deu errado besta!"));
+    this.produtoService.salvar(produto).subscribe(() => {
+      SwallUtil.mensagemSucesso("Deu Certo!!!")
+      this.formProduto.reset();
+    }, error => SwallUtil.mensagemError("Deu errado besta!"));
   }
 
 }

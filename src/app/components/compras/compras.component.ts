@@ -40,7 +40,6 @@ export class ComprasComponent implements OnInit {
 
   salvar(): void {
     const compra = this.formProduto.value;
-    debugger
     this.compraService.salvar(compra).subscribe(() => SwallUtil.mensagemSucesso('Deu Certo!!!'),
       error => SwallUtil.mensagemError('Deu errado besta!'));
 
