@@ -6,7 +6,8 @@
       </div>
       <div class="card-body row">
         <div class="col-sm-12">
-          <input type="text" class="form-control" placeholder="Consultar Membro/Candidato" aria-label="ConsultaMembroCandidato"
+          <input type="text" class="form-control" placeholder="Consultar Membro/Candidato"
+                 aria-label="ConsultaMembroCandidato"
                  id="ConsultaMembros" formControlName="nomeMembro">
         </div>
         <div class="col-sm-10 mt-2">
@@ -17,7 +18,7 @@
             <label class="btn btn-sm btn-primary btn-simple" id="1">
               <input type="radio" name="relevancia" formControlName="relevancia" value="Prospect"> Prospect
             </label>
-            <label class="btn btn-sm btn-primary btn-simple "  id="2">
+            <label class="btn btn-sm btn-primary btn-simple " id="2">
               <input type="radio" name="relevancia" formControlName="relevancia" value="Hangaround"> Hangaround
             </label>
           </div>
@@ -38,33 +39,36 @@
   <div class="card">
     <div class="card-header ">
       <h6 class="title d-inline">Consultar Membros</h6>
-    </div>
-    <div class="col-sm-12">
       <div class=" float-right">
         <button class="btn btn-primary" routerLink="/cadastro-membros">Novo</button>
       </div>
-      <table class="table table-bordered">
-        <thead>
-        <tr class="text-center" >
-          <th scope="col">#</th>
-          <th scope="col" >Nome</th>
-          <th scope="col">Relevancia</th>
-          <th scop="col">Ações</th>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive ps">
+        <table class="table tablesorter ">
+          <thead>
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">Relevancia</th>
+              <th scop="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let membro of consultaMembros">
+              <td>{{membro.nome}}</td>
+              <td>{{membro.relevancia}}</td>
 
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="text-center" *ngFor="let membro of consultaMembros" >
-          <th scope="row">1</th>
-          <td>{{membro.nome}}</td>
-          <td>{{membro.relevancia}}</td>
-
-          <td class="text-center">
-            <button class="btn btn-default mr-2 p-0" ><i class="fa fa-pencil-square-o" aria-hidden="true" routerLink="/cadastro-membros/{{membro.id}}"></i></button>
-            <button class="btn btn-default  p-0" ><i class="fa fa-trash " aria-hidden="false" (click)="deletarMembro(membro.id)"></i></button></td>
-        </tr>
-        </tbody>
-      </table>
+              <td>
+                <button class="btn btn-default mr-2 p-0"><i class="fa fa-pencil-square-o" aria-hidden="true"
+                                                            routerLink="/cadastro-membros/{{membro.id}}"></i></button>
+                <button class="btn btn-default  p-0"><i class="fa fa-trash " aria-hidden="false"
+                                                        (click)="deletarMembro(membro.id)"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
+</div>
 

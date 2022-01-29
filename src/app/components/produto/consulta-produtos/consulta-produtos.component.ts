@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {SwallUtil} from '../../../shared/util/SwallUtil';
 import {Produto} from "../../../shared/models";

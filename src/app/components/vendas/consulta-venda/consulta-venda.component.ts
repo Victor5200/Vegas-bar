@@ -10,6 +10,7 @@ import {ComandasService} from "../../../shared/services/comandas.service";
 })
 export class ConsultaVendaComponent implements OnInit {
   listaComanda: VendasComandas[];
+  listaComandaMembros: VendasComandas[];
 
   constructor(private comandaService: ComandasService) {
   }
@@ -20,8 +21,8 @@ export class ConsultaVendaComponent implements OnInit {
 
   buscarVenda(): void {
     this.comandaService.buscarTodas().subscribe(resultado => {
-      this.listaComanda = resultado;
-
+      this.listaComandaMembros = resultado.filter(x => x.membro);
+      this.listaComanda = resultado.filter(x =>!x.membro);
     });
   }
 

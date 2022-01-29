@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {SwallUtil} from '../../../shared/util/SwallUtil';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Produto} from "../../../shared/models";
 import {ProdutoService} from "../../../shared/services/produto-service";
 
@@ -15,7 +15,7 @@ export class CadastroProdutoComponent implements OnInit {
   cdiMask: any = "999";
 
 
-  constructor(private produtoService: ProdutoService, private route: ActivatedRoute) {
+  constructor(private produtoService: ProdutoService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class CadastroProdutoComponent implements OnInit {
     const produto = this.formProduto.value;
     this.produtoService.salvar(produto).subscribe(() => {
       SwallUtil.mensagemSucesso("Deu Certo!!!")
-      this.formProduto.reset();
+      this.router.navigate(['consulta-produtos']);
     }, error => SwallUtil.mensagemError("Deu errado besta!"));
   }
 

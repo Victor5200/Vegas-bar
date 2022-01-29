@@ -7,16 +7,16 @@
 
           <label class="btn btn-sm btn-primary btn-simple" id="1">
             <input type="radio" name="relevancia" formControlName="tipoVenda" (click)="limparForm(false)"
-              value="membro"> Membro
+                   value="membro"> Membro
           </label>
           <label class="btn btn-sm btn-primary btn-simple " id="2">
             <input type="radio" name="relevancia" formControlName="tipoVenda" (click)="limparForm(true)"
-              value="comanda"> Comanda
+                   value="comanda"> Comanda
           </label>
         </div>
         <div class="form-group col-sm-12" *ngIf="this.formVendascomandas.value.tipoVenda === 'membro' ">
           <select class="form-select " aria-label="Default select example" [compareWith]="compareFn"
-            formControlName="membro">
+                  formControlName="membro">
             <option [ngValue]="null" disabled>selecione o membro</option>
             <option *ngFor="let membro of consultaMembros" [ngValue]="membro">{{ membro.nome }}</option>
           </select>
@@ -25,7 +25,7 @@
         <div class="col-sm-12 row" *ngIf="this.formVendascomandas.value.tipoVenda === 'comanda' ">
           <div class="form-group col-sm-12">
             <select class="form-select " aria-label="Default select example" [compareWith]="compareFn"
-              formControlName="comandaSelecionada" (change)="preencheComandaSelecionada()">
+                    formControlName="comandaSelecionada" (change)="preencheComandaSelecionada()">
               <option [ngValue]="null" disabled>selecione a Comanda</option>
               <option *ngFor="let comanda of comandasAbertas" [ngValue]="comanda">{{ comanda.descricao }}</option>
             </select>
@@ -41,13 +41,13 @@
         <div class="form-group col-sm-3">
           <label>Codigo do Produto</label>
           <input type="text" class="form-control" placeholder="Código do Produto" aria-label="CodigoProduto"
-            id="CodigoProduto" (blur)="buscarProduto()" formControlName="codigoProduto">
+                 id="CodigoProduto" (blur)="buscarProduto()" formControlName="codigoProduto">
         </div>
 
         <div class="form-group col-sm-3">
           <label>Nome do Produto</label>
           <input readOnly type="text" class="form-control" placeholder="Nome do Produto" aria-label="NomeProduto"
-            id="NomeProduto" formControlName="nomeProduto">
+                 id="NomeProduto" formControlName="nomeProduto">
         </div>
 
         <div class="form-group col-sm-2">
@@ -58,15 +58,14 @@
               <span class="input-group-text">R$</span>
             </div>
             <input readonly type="text" class="form-control" placeholder="Valor" aria-label="Valor" id="valor "
-              formControlName="valor">
+                   formControlName="valor">
           </div>
         </div>
-
 
         <div class="form-group col-sm-2">
           <label>Quantidade</label>
           <input type="text" class="form-control" placeholder="Quantidade" aria-label="Quantidade" id="Quantidade"
-            formControlName="quantidadeProduto">
+                 formControlName="quantidadeProduto">
         </div>
         <div class="col-sm-2">
           <div class="float-right">
@@ -77,41 +76,41 @@
     </div>
   </div>
 
-  <!--inciando segunda tabela -->
   <div class="col-lg-12 col-md-12">
     <div class="card">
       <div class="card-header ">
         <h6 class="title d-inline">Vendas</h6>
       </div>
-      <div class="col-sm-12">
-        <table class="table table-bordered">
-          <thead>
-            <tr class="text-center">
-              <th scope="col">#</th>
-              <th scope="col">Nome</th>
-              <th scope="col">Valor</th>
-              <th scope="col">Quantidade</th>
-              <th scope="col">Valor Total</th>
-              <th scope="col">Remover</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="text-center" *ngFor="let itens of retornaListaItens()">
-              <td>{{itens.produto.id }}</td>
-              <td>{{itens.produto.nome}}</td>
-              <td>{{itens.produto.valorVenda  | currency:'BRL':true:'1.2-2'}}</td>
-              <td>{{itens.quantidade}}</td>
-              <td>{{itens.valor | currency:'BRL':true:'1.2-2' }}</td>
-              <td class="text-center">
-                <button class="btn btn-default  p-0"><i class="fa fa-trash " aria-hidden="false "></i></button>
-              </td>
-            </tr>
-            <tr>
-              <td colspan="5">Total Geral:</td>
-              <td>{{somar() | currency:'BRL':true:'1.2-2'}}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="card-body">
+        <div class="table-responsive ps">
+          <table class="table tablesorter ">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Valor</th>
+                <th scope="col">Quantidade</th>
+                <th scope="col">Valor Total</th>
+                <th scope="col">Remover</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let itens of retornaListaItens(); let i = index">
+                <td>{{itens.produto.nome}}</td>
+                <td>{{itens.produto.valorVenda  | currency:'BRL':true:'1.2-2'}}</td>
+                <td>{{itens.quantidade}}</td>
+                <td>{{itens.valor | currency:'BRL':true:'1.2-2' }}</td>
+                <td>
+                  <button (click)="removerItem(i)" class="btn btn-default  p-0"><i class="fa fa-trash "
+                                                                                   aria-hidden="false "></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4">Total Geral:</td>
+                <td>{{somar() | currency:'BRL':true:'1.2-2'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <div class="col-sm-12">
           <div class="float-right">
             <button class="btn btn-primary mr-2" (click)="salvarComanda()"> Atualizar</button>

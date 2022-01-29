@@ -7,9 +7,9 @@ import {Membro, Produto} from "../models";
   providedIn: 'root',
 })
 
-export class ProdutoService {
+export class CompraService {
 
-  api = `${environment.baseUrl}/produtos`
+  api = `${environment.baseUrl}/compras`
 
   constructor(protected http: HttpClient) {
   }

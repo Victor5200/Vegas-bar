@@ -1,63 +1,75 @@
-<form [formGroup]="formConsultaProdutos">
-  <div class="col-lg-12 col-md-12">
-    <div class="card">
-      <div class="card-header ">
-        <h6 class="title d-inline">Consultar Produtos</h6>
-      </div>
-      <div class="card-body row">
-        <div class="col-sm-6">
-          <input type="text" class="form-control" placeholder="Código do Produto" aria-label="CodigoProduto"
-                 id="CodigoProduto" formControlName="id">
-        </div>
-        <div class="col-sm-6">
-          <input type="text" class="form-control" placeholder="Nome do Produto" aria-label="NomeProduto"
-                 id="NomeProduto" formControlName="nomeProduto">
-        </div>
+<div class="col-sm-12 d-flex flex-row">
+  <div class="w-50">
+    <form [formGroup]="formConsultaProdutos">
+      <div class="col-lg-12 col-md-12">
+        <div class="card">
+          <div class="card-header ">
+            <h6 class="title d-inline">Consultar Produtos</h6>
+          </div>
+          <div class="card-body row">
+            <div class="col-sm-6">
+              <input type="text" class="form-control" placeholder="Código do Produto" aria-label="CodigoProduto"
+                     id="CodigoProduto" formControlName="id">
+            </div>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" placeholder="Nome do Produto" aria-label="NomeProduto"
+                     id="NomeProduto" formControlName="nomeProduto">
+            </div>
 
-        <div class="col-sm-12">
+            <div class="col-sm-12 mt-5">
+              <div class=" float-right">
+                <button class="btn btn-default mr-2" (click)="limpar()">Limpar</button>
+                <button class="btn btn-primary">Pesquisar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="col-lg-12 col-md-12">
+      <div class="card">
+        <div class="card-header ">
+          <h6 class="title d-inline">Consultar Produtos</h6>
+
           <div class=" float-right">
-            <button class="btn btn-default mr-2" (click)="limpar()">Limpar</button>
-            <button class="btn btn-primary">Pesquisar</button>
+            <button class="btn btn-primary" routerLink="/cadastro-produto">Novo</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive ps">
+            <table class="table tablesorter ">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nome do Produto</th>
+                  <th scope="col">Valor</th>
+                  <th scope="col">Quantidade</th>
+                  <th scop="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let produto of retornoApi">
+                  <th scope="row">{{produto.id}}</th>
+                  <td>{{produto.nome}}</td>
+                  <td>{{produto.valorVenda | currency:'BRL':true:'1.2-2'}}</td>
+                  <td>{{produto.quantidade}}</td>
+                  <td class="text-center">
+                    <button class="btn btn-default mr-2 p-0" routerLink="/cadastro-produto/{{produto.id}}"><i
+                      class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                    <button class="btn btn-default  p-0"><i class="fa fa-trash " aria-hidden="false"
+                                                            (click)="deletarProduto(produto.id)"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
   </div>
-</form>
 
-
-<div class="col-lg-12 col-md-12">
-  <div class="card">
-    <div class="card-header ">
-      <h6 class="title d-inline">Consultar Produtos</h6>
-    </div>
-    <div class="col-sm-12">
-      <div class=" float-right">
-        <button class="btn btn-primary" routerLink="/cadastro-produto">Novo</button>
-      </div>
-      <table class="table table-bordered">
-        <thead>
-        <tr class="text-center">
-          <th scope="col">#</th>
-          <th scope="col">Nome do Produto</th>
-          <th scope="col">Valor</th>
-          <th scope="col">Quantidade</th>
-          <th scop="col">Ações</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="text-center" *ngFor="let produto of retornoApi">
-          <th scope="row">{{produto.id}}</th>
-          <td>{{produto.nome}}</td>
-          <td>{{produto.valorVenda | currency:'BRL':true:'1.2-2'}}</td>
-          <td>{{produto.quantidade}}</td>
-          <td class="text-center">
-            <button class="btn btn-default mr-2 p-0"  routerLink="/cadastro-produto/{{produto.id}}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-            <button class="btn btn-default  p-0" ><i class="fa fa-trash " aria-hidden="false" (click)="deletarProduto(produto.id)"></i></button></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="w-50" *ngIf="retornoApi && retornoApi.length > 0">
+    <app-compras (eventEmitter)="buscar()" [retornoApi]="retornoApi"></app-compras>
   </div>
 </div>

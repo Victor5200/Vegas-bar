@@ -22,6 +22,7 @@ import {ConsultaVendaComponent} from './components/vendas/consulta-venda/consult
 import {registerLocaleData} from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import {JwtInterceptor} from "./interceptor/jwt.interceptor";
+import {ComprasComponent} from "./components/compras/compras.component";
 
 registerLocaleData(localePt);
 
@@ -44,6 +45,7 @@ const maskConfig: Partial<IConfig> = {
     ConsultaProdutosComponent,
     ConsultaMembrosComponent,
     ConsultaVendaComponent,
+    ComprasComponent,
   ],
   imports: [
     BrowserModule,

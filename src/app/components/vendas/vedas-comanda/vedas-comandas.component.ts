@@ -191,4 +191,18 @@ export class VedasComandasComponent implements OnInit {
       this.comanda()
     }
   }
+
+  removerItem(idItem: any) {
+    let itens = this.formVendascomandas.get('itens') as FormArray;
+    itens.removeAt(idItem);
+  }
+
+  pagarVenda(): void {
+    const vendasComandas = this.formVendascomandas.value;
+    vendasComandas.valorTotal = this.somar();
+    vendasComandas.pago = true;
+    this.comandaService.salvar(vendasComandas).subscribe(resultado => {
+      SwallUtil.mensagemSucesso('Pago');
+    });
+  }
 }

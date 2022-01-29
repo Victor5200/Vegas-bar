@@ -4,8 +4,10 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8080/api',
-  urlLogin: 'http://localhost:8080'
+  //baseUrl: 'http://vegas.us-east-1.elasticbeanstalk.com/api',
+  //urlLogin: 'http://vegas.us-east-1.elasticbeanstalk.com'
+  baseUrl: 'http://localhost:5000/api',
+  urlLogin: 'http://localhost:5000'
 };
 
 /*

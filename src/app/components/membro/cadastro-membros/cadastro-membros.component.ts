@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {SwallUtil} from '../../../shared/util/SwallUtil';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Membro} from "../../../shared/models";
 import {MembroService} from "../../../shared/services/membro-service";
 
@@ -15,7 +15,7 @@ export class CadastroMembrosComponent implements OnInit {
   telMask: any = "(00) 00000-0000";
   cpfMask: any = "000.000.000-00";
 
-  constructor(private membroService: MembroService, private route: ActivatedRoute) {}
+  constructor(private membroService: MembroService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     const idRoute = this.route.snapshot.params.id;
@@ -45,7 +45,7 @@ export class CadastroMembrosComponent implements OnInit {
     const membros = this.formMembros.value;
     this.membroService.salvar(membros).subscribe(resultado => {
       SwallUtil.mensagemSucesso("Aiii Até que vc n e tão burro, deu certo!");
-      this.limpar()
+      this.router.navigate(['consulta-membros']);
     }, erro => {
       SwallUtil.mensagemError("Erro Trouxa faz de novo ai burrão");
     });
