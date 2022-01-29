@@ -33,7 +33,7 @@
               <td>{{comanda.valorTotal | currency:'BRL':true:'1.2-2'}}</td>
               <td>{{comanda.data | date:'MMMM - yyyy'}}</td>
 
-              <td class="text-center">
+              <td>
                 <button *ngIf="!comanda.pago" class="btn btn-default mr-2 p-0"><i class="fa fa-pencil-square-o"
                                                                                   routerLink="/vendas-comandas/{{comanda.id}}"
                                                                                   aria-hidden="true"></i></button>
@@ -78,7 +78,7 @@
             <td>{{comanda.valorTotal | currency:'BRL':true:'1.2-2'}}</td>
             <td>{{comanda.data | date:'dd/MM/yyyy'}}</td>
 
-            <td class="text-center">
+            <td>
               <button *ngIf="!comanda.pago" class="btn btn-default mr-2 p-0"><i class="fa fa-pencil-square-o"
                                                                                 routerLink="/vendas-comandas/{{comanda.id}}"
                                                                                 aria-hidden="true"></i></button>
