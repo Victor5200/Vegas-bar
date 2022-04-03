@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {SwallUtil} from '../../../shared/util/SwallUtil';
 import {VendasComandas} from "../../../shared/models";
 import {ComandasService} from "../../../shared/services/comandas.service";
+import _ from 'lodash'
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-consulta-venda',
@@ -9,21 +11,40 @@ import {ComandasService} from "../../../shared/services/comandas.service";
   styleUrls: ['./consulta-venda.component.scss']
 })
 export class ConsultaVendaComponent implements OnInit {
-  listaComanda: VendasComandas[];
-  listaComandaMembros: VendasComandas[];
+  listaComanda: any[];
+  listaComandaMembros: any[];
 
-  constructor(private comandaService: ComandasService) {
+  constructor(private comandaService: ComandasService, private spinner: NgxSpinnerService) {
   }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.buscarVenda();
   }
 
   buscarVenda(): void {
     this.comandaService.buscarTodas().subscribe(resultado => {
-      this.listaComandaMembros = resultado.filter(x => x.membro);
-      this.listaComanda = resultado.filter(x =>!x.membro);
+      this.listaComandaMembros = this.listGroupByMonth(resultado.filter(x => x.membro));
+      this.listaComanda = this.listGroupByMonth(resultado.filter(x => !x.membro));
+      this.spinner.hide();
     });
+  }
+
+  private listGroupByMonth(listaMembro) {
+    let groups = listaMembro.reduce(function (grouper, o) {
+      let month = new Date(o.data).getMonth();
+      (grouper[month]) ? grouper[month].list.push(o) : grouper[month] = {group: month, list: [o]};
+      return grouper;
+    }, {});
+
+
+    let returno = Object.keys(groups).map(function (k) {
+      return groups[k];
+    });
+
+    returno.reverse();
+
+    return returno;
   }
 
   deletarVenda(id: number): void {

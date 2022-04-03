@@ -23,6 +23,8 @@ import {registerLocaleData} from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import {JwtInterceptor} from "./interceptor/jwt.interceptor";
 import {ComprasComponent} from "./components/compras/compras.component";
+import { NgxSpinnerModule } from "ngx-spinner";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 registerLocaleData(localePt);
 
@@ -51,6 +53,8 @@ const maskConfig: Partial<IConfig> = {
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    NgxSpinnerModule,
     HttpClientModule,
     NgxMaskModule.forRoot(maskConfig)
   ],

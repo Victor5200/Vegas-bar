@@ -6,11 +6,11 @@
           <label>Tipo de Vendas:</label>
 
           <label class="btn btn-sm btn-primary btn-simple" id="1">
-            <input type="radio" name="relevancia" formControlName="tipoVenda" (click)="limparForm(false)"
+            <input type="radio" name="tipoVenda" formControlName="tipoVenda" (click)="limparForm(false)"
                    value="membro"> Membro
           </label>
           <label class="btn btn-sm btn-primary btn-simple " id="2">
-            <input type="radio" name="relevancia" formControlName="tipoVenda" (click)="limparForm(true)"
+            <input type="radio" name="tipoVenda" formControlName="tipoVenda" (click)="limparForm(true)"
                    value="comanda"> Comanda
           </label>
         </div>
@@ -38,16 +38,14 @@
           </div>
         </div>
 
-        <div class="form-group col-sm-3">
-          <label>Codigo do Produto</label>
-          <input type="text" class="form-control" placeholder="Código do Produto" aria-label="CodigoProduto"
-                 id="CodigoProduto" (blur)="buscarProduto()" formControlName="codigoProduto">
-        </div>
+        <div class="form-group col-sm-6">
+          <label>Produto</label>
 
-        <div class="form-group col-sm-3">
-          <label>Nome do Produto</label>
-          <input readOnly type="text" class="form-control" placeholder="Nome do Produto" aria-label="NomeProduto"
-                 id="NomeProduto" formControlName="nomeProduto">
+          <select class="form-select " placeholder="Selecione o Produto" [compareWith]="compareFn"
+                  formControlName="codigoProduto" (change)="buscarProduto()">
+            <option [ngValue]="null" disabled>Selecione o Produto</option>
+            <option *ngFor="let produto of produtosDisponiveis" [ngValue]="produto.id">{{ produto.nome }}</option>
+          </select>
         </div>
 
         <div class="form-group col-sm-2">

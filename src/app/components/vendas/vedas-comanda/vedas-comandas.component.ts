@@ -6,6 +6,7 @@ import {Membro, Produto, VendasComandas} from "../../../shared/models";
 import {ComandasService} from "../../../shared/services/comandas.service";
 import {MembroService} from "../../../shared/services/membro-service";
 import {ProdutoService} from "../../../shared/services/produto-service";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-vedas-comandas',
@@ -17,14 +18,17 @@ export class VedasComandasComponent implements OnInit {
   consultaMembros: Membro[];
   produtoSelecionado: Produto;
   comandasAbertas: VendasComandas[];
+  produtosDisponiveis: Produto[];
 
   constructor(private comandaService: ComandasService,
               private membroService: MembroService,
               private produtoService: ProdutoService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private spinner: NgxSpinnerService) {
   }
 
   ngOnInit(): void {
+    this.spinner.show();
     const idRota = this.route.snapshot.params.id;
 
     if (!idRota) {
@@ -32,11 +36,20 @@ export class VedasComandasComponent implements OnInit {
     } else {
       this.comandaService.buscarPorId(idRota).subscribe(res => {
         this.populaFormComRetornoBackend(res, !res.membro);
+        this.spinner.hide();
       });
     }
 
     this.buscar();
     this.comanda();
+    this.carregarProdutos();
+  }
+
+  private carregarProdutos() {
+    this.produtoService.buscarTodas().subscribe((res) => {
+      this.produtosDisponiveis = res.filter(item => item.quantidade > 0);
+      this.spinner.hide();
+    })
   }
 
   compareFn(m1: any, m2: any): boolean {
@@ -67,6 +80,7 @@ export class VedasComandasComponent implements OnInit {
 
   private executaValuChangeMembro() {
     this.formVendascomandas.get('membro').valueChanges.subscribe(value => {
+      this.spinner.show();
       this.comandaService.buscarComandasAbertaMembro(value.id).subscribe(res => {
         if (res) {
           this.populaFormComRetornoBackend(res, false);
@@ -76,6 +90,8 @@ export class VedasComandasComponent implements OnInit {
             id: null
           });
         }
+
+        this.spinner.hide();
       });
     });
   }
@@ -118,6 +134,7 @@ export class VedasComandasComponent implements OnInit {
   }
 
   adicionarIten(): void {
+    this.spinner.show();
     const itens = this.formVendascomandas.get('itens') as FormArray;
     itens.push(new FormGroup({
       produto: new FormControl(this.produtoSelecionado),
@@ -151,8 +168,10 @@ export class VedasComandasComponent implements OnInit {
     this.comandaService.salvar(vendasComandas).subscribe(resultado => {
       SwallUtil.mensagemSucesso('Comanda Salva Lindão!!');
       this.populaFormComRetornoBackend(resultado, !resultado.membro);
+      this.spinner.hide();
     }, error => {
       SwallUtil.mensagemError(error);
+      this.spinner.hide();
     });
   }
 
@@ -164,31 +183,17 @@ export class VedasComandasComponent implements OnInit {
 
 
   preencheComandaSelecionada() {
+    this.spinner.show();
     const vendasComandas = this.formVendascomandas.get('comandaSelecionada').value;
-    this.formVendascomandas.patchValue({
-      id: vendasComandas.id,
-      data: vendasComandas.data,
-      valorTotal: vendasComandas.valorTotal,
-      descricao: vendasComandas.descricao,
-      pago: vendasComandas.pago,
-    });
-
-    const itens = this.formVendascomandas.get('itens') as FormArray;
-    vendasComandas.itens.forEach(item => {
-      itens.push(new FormGroup({
-        id: new FormControl(item.id),
-        produto: new FormControl(item.produto),
-        quantidade: new FormControl(item.quantidade),
-        valor: new FormControl(item.quantidade * item.produto.valorVenda),
-      }));
-    });
+    this.populaFormComRetornoBackend(vendasComandas, !vendasComandas.membro);
+    this.spinner.hide();
   }
 
   limparForm(isComanda) {
     this.creatForm(new VendasComandas(), isComanda)
 
     if (isComanda) {
-      this.comanda()
+      this.comanda();
     }
   }
 

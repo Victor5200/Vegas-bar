@@ -18,40 +18,58 @@
 
     <div class="card-body col-sm-12">
       <div class="table-responsive ps">
-        <table class="table tablesorter">
-          <thead>
-            <tr>
-              <th scope="col">Nome</th>
-              <th scope="col">Valor</th>
-              <th scope="col">Data</th>
-              <th scop="col">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let comanda of listaComandaMembros">
-              <td>{{comanda.membro ? comanda?.membro?.nome : comanda.descricao }}</td>
-              <td>{{comanda.valorTotal | currency:'BRL':true:'1.2-2'}}</td>
-              <td>{{comanda.data | date:'MMMM - yyyy'}}</td>
+        <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
+          <div class="card card-plain" *ngFor="let mes of listaComandaMembros; let i = index">
+            <div class="card-header" role="tab" id="heading{{i}}">
+              <a class="text-capitalize collapsed" data-toggle="collapse" data-toggle="collapse"
+                 data-parent="#accordion" href="#collapse{{i}}" aria-expanded="true">
+                {{mes.list[0].data | date:'MMMM - yyyy'}}
+                <i class="tim-icons icon-minimal-down"></i>
+              </a>
+            </div>
 
-              <td>
-                <button *ngIf="!comanda.pago" class="btn btn-default mr-2 p-0"><i class="fa fa-pencil-square-o"
-                                                                                  routerLink="/vendas-comandas/{{comanda.id}}"
-                                                                                  aria-hidden="true"></i></button>
-                <button *ngIf="!comanda.pago" class="btn btn-default  mr-2 p-0"><i class="fa fa-trash " aria-hidden="false"
-                                                                                   (click)="deletarVenda(comanda.id)"></i>
-                </button>
-                <button *ngIf="!comanda.pago" class="btn btn-default p-0" (click)="pagarVenda(comanda)"><i class="fa fa-usd"
-                                                                                                           aria-hidden="true"></i>
-                </button>
+            <div id="collapse{{i}}" class="collapse" [ngClass]="{'show': i == 0}" role="tabpanel">
+              <div class="card-body">
+                <table class="table tablesorter">
+                  <thead>
+                  <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Data</th>
+                    <th scop="col">Ações</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let comanda of mes.list">
+                    <td>{{comanda.membro ? comanda?.membro?.nome : comanda.descricao }}</td>
+                    <td>{{comanda.valorTotal | currency:'BRL':true:'1.2-2'}}</td>
+                    <td>{{comanda.data | date:'MMMM - yyyy'}}</td>
 
-                <div *ngIf="comanda.pago" class="alert alert-success" role="alert">
-                  Pago
-                </div>
+                    <td>
+                      <button *ngIf="!comanda.pago" class="btn btn-default mr-2 p-0"><i class="fa fa-pencil-square-o"
+                                                                                        routerLink="/vendas-comandas/{{comanda.id}}"
+                                                                                        aria-hidden="true"></i></button>
+                      <button *ngIf="!comanda.pago" class="btn btn-default  mr-2 p-0"><i class="fa fa-trash "
+                                                                                         aria-hidden="false"
+                                                                                         (click)="deletarVenda(comanda.id)"></i>
+                      </button>
+                      <button *ngIf="!comanda.pago" class="btn btn-default p-0" (click)="pagarVenda(comanda)"><i
+                        class="fa fa-usd"
+                        aria-hidden="true"></i>
+                      </button>
 
-              </td>
-            </tr>
-          </tbody>
-        </table>
+                      <small *ngIf="comanda.pago" class="alert alert-success" role="alert">
+                        Pago
+                      </small>
+
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -63,40 +81,56 @@
 
     <div class="card-body col-sm-12">
       <div class="table-responsive ps">
-       <table class="table tablesorter ">
-        <thead>
-          <tr>
-            <th scope="col">Nome</th>
-            <th scope="col">Valor</th>
-            <th scope="col">Data</th>
-            <th scop="col">Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let comanda of listaComanda">
-            <td>{{comanda.membro ? comanda?.membro?.nome : comanda.descricao }}</td>
-            <td>{{comanda.valorTotal | currency:'BRL':true:'1.2-2'}}</td>
-            <td>{{comanda.data | date:'dd/MM/yyyy'}}</td>
+        <div class="card card-plain" *ngFor="let mes of listaComanda; let i = index">
+          <div class="card-header" role="tab" id="headingAvulso{{i}}">
+            <a class="text-capitalize collapsed" data-toggle="collapse" data-toggle="collapse" data-parent="#accordion"
+               href="#collapseAvulso{{i}}" aria-expanded="true">
+              {{mes.list[0].data | date:'MMMM - yyyy'}}
+              <i class="tim-icons icon-minimal-down"></i>
+            </a>
+          </div>
 
-            <td>
-              <button *ngIf="!comanda.pago" class="btn btn-default mr-2 p-0"><i class="fa fa-pencil-square-o"
-                                                                                routerLink="/vendas-comandas/{{comanda.id}}"
-                                                                                aria-hidden="true"></i></button>
-              <button *ngIf="!comanda.pago" class="btn btn-default  mr-2 p-0"><i class="fa fa-trash " aria-hidden="false"
-                                                                                 (click)="deletarVenda(comanda.id)"></i>
-              </button>
-              <button *ngIf="!comanda.pago" class="btn btn-default p-0" (click)="pagarVenda(comanda)"><i class="fa fa-usd"
-                                                                                                         aria-hidden="true"></i>
-              </button>
+          <div id="collapseAvulso{{i}}" class="collapse" role="tabpanel">
+            <div class="card-body">
+              <table class="table tablesorter">
+                <thead>
+                <tr>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Valor</th>
+                  <th scope="col">Data</th>
+                  <th scop="col">Ações</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let comanda of mes.list">
+                  <td>{{comanda.membro ? comanda?.membro?.nome : comanda.descricao }}</td>
+                  <td>{{comanda.valorTotal | currency:'BRL':true:'1.2-2'}}</td>
+                  <td>{{comanda.data | date:'MMMM - yyyy'}}</td>
 
-              <small *ngIf="comanda.pago" class="alert alert-success" role="alert">
-                Pago
-              </small>
+                  <td>
+                    <button *ngIf="!comanda.pago" class="btn btn-default mr-2 p-0"><i class="fa fa-pencil-square-o"
+                                                                                      routerLink="/vendas-comandas/{{comanda.id}}"
+                                                                                      aria-hidden="true"></i></button>
+                    <button *ngIf="!comanda.pago" class="btn btn-default  mr-2 p-0"><i class="fa fa-trash "
+                                                                                       aria-hidden="false"
+                                                                                       (click)="deletarVenda(comanda.id)"></i>
+                    </button>
+                    <button *ngIf="!comanda.pago" class="btn btn-default p-0" (click)="pagarVenda(comanda)"><i
+                      class="fa fa-usd"
+                      aria-hidden="true"></i>
+                    </button>
 
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                    <small *ngIf="comanda.pago" class="alert alert-success" role="alert">
+                      Pago
+                    </small>
+
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

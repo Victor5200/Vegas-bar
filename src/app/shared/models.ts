@@ -13,7 +13,7 @@ export class Produto {
   fornecedor: string;
   id: number;
   valorCusto: number;
-  quantidade:string
+  quantidade:number
 }
 
 

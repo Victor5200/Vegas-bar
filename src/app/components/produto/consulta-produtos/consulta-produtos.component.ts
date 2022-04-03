@@ -3,6 +3,8 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {SwallUtil} from '../../../shared/util/SwallUtil';
 import {Produto} from "../../../shared/models";
 import {ProdutoService} from "../../../shared/services/produto-service";
+import {MembroService} from "../../../shared/services/membro-service";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-consulta-produtos',
@@ -13,9 +15,10 @@ export class ConsultaProdutosComponent implements OnInit {
   formConsultaProdutos: FormGroup;
   retornoApi: Produto[];
 
-  constructor(private produtoService: ProdutoService) {}
+  constructor(private produtoService: ProdutoService, private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
+    this.spinner.show();
     this.createForm();
     this.buscar();
   }
@@ -29,8 +32,10 @@ export class ConsultaProdutosComponent implements OnInit {
   }
 
   buscar(): void {
+    this.spinner.show();
     this.produtoService.buscarTodas().subscribe(resultado => {
       this.retornoApi = resultado;
+      this.spinner.hide();
     });
   }
 

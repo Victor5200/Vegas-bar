@@ -3,6 +3,7 @@ import {FormControl, FormGroup} from '@angular/forms';
 import {SwallUtil} from '../../../shared/util/SwallUtil';
 import {Membro} from "../../../shared/models";
 import {MembroService} from "../../../shared/services/membro-service";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-consulta-membros',
@@ -13,9 +14,10 @@ export class ConsultaMembrosComponent implements OnInit {
   formConsultaMembros: FormGroup;
   consultaMembros: Membro[];
 
-  constructor(private membroService: MembroService) {}
+  constructor(private membroService: MembroService, private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
+    this.spinner.show();
     this.createForm();
     this.buscar();
   }
@@ -30,10 +32,12 @@ export class ConsultaMembrosComponent implements OnInit {
   buscar(): void {
     this.membroService.buscarTodas().subscribe(resultado => {
       this.consultaMembros = resultado;
+      this.spinner.hide();
     });
   }
 
   deletarMembro(id: number): void {
+    this.spinner.show();
     this.membroService.deletar(id).subscribe(resultado => {
       SwallUtil.mensagemSucesso(" Desonra para a Familia");
       this.buscar()
