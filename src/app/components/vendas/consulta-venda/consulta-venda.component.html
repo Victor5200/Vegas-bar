@@ -47,7 +47,8 @@
                       <td>
                         <button *ngIf="!comanda.pago" class="btn btn-default mr-2 p-0"><i class="fa fa-pencil-square-o"
                                                                                           routerLink="/vendas-comandas/{{comanda.id}}"
-                                                                                          aria-hidden="true"></i></button>
+                                                                                          aria-hidden="true"></i>
+                        </button>
                         <button *ngIf="!comanda.pago" class="btn btn-default  mr-2 p-0"><i class="fa fa-trash "
                                                                                            aria-hidden="false"
                                                                                            (click)="deletarVenda(comanda.id)"></i>
@@ -62,6 +63,11 @@
                         </small>
 
                       </td>
+                    </tr>
+
+                    <tr>
+                      <td class="font-weight-bolder" colspan="3">Valor Total:</td>
+                      <td class="font-weight-bolder">{{somaTotal(mes.list) | currency:'BRL':true:'1.2-2'}}</td>
                     </tr>
                     </tbody>
                   </table>
@@ -85,7 +91,8 @@
         <div class="table-responsive ps">
           <div class="card card-plain" *ngFor="let mes of listaComanda; let i = index">
             <div class="card-header" role="tab" id="headingAvulso{{i}}">
-              <a class="text-capitalize collapsed" data-toggle="collapse" data-toggle="collapse" data-parent="#accordion"
+              <a class="text-capitalize collapsed" data-toggle="collapse" data-toggle="collapse"
+                 data-parent="#accordion"
                  href="#collapseAvulso{{i}}" aria-expanded="true">
                 {{mes.list[0].data | date:'MMMM - yyyy'}}
                 <i class="tim-icons icon-minimal-down"></i>
@@ -127,6 +134,10 @@
                       </small>
 
                     </td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bolder" colspan="3">Valor Total:</td>
+                    <td class="font-weight-bolder">{{somaTotal(mes.list) | currency:'BRL':true:'1.2-2'}}</td>
                   </tr>
                   </tbody>
                 </table>

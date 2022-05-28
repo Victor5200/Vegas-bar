@@ -62,4 +62,8 @@ export class ConsultaVendaComponent implements OnInit {
 
     });
   }
+
+  somaTotal(list) {
+    return list.map(x => Number(x.valorTotal)).reduce((y, x) => y + x)
+  }
 }
